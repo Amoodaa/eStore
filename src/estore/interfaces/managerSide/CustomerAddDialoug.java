@@ -5,11 +5,13 @@
  */
 package estore.interfaces.managerSide;
 
+import estore.backend.Fillable;
+
 /**
  *
  * @author amood
  */
-public class CustomerAddDialoug extends javax.swing.JDialog {
+public class CustomerAddDialoug extends javax.swing.JDialog implements Filler {
 
     /**
      * Creates new form NewJDialog
@@ -189,4 +191,14 @@ public class CustomerAddDialoug extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel31;
     private javax.swing.JPanel jPanel9;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public String[] get() {
+        String[] arr = new String[4];
+        arr[0] = this.customerName.getText();
+        arr[1] = this.customerAddress.getText();
+        arr[2] = this.customerUsername.getText();
+        arr[3] = this.customerPassword.getText();
+        return arr;
+    }
 }

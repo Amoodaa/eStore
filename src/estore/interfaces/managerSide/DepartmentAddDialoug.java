@@ -9,7 +9,7 @@ package estore.interfaces.managerSide;
  *
  * @author amood
  */
-public class DepartmentAddDialoug extends javax.swing.JDialog {
+public class DepartmentAddDialoug extends javax.swing.JDialog implements Filler {
 
     /**
      * Creates new form NewJDialog
@@ -161,4 +161,13 @@ public class DepartmentAddDialoug extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane14;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public String[] get() {
+        String[] arr = new String[2];
+        arr[0] = this.departmentName.getText();
+        arr[1] = this.departmentDescription.getText();
+        return arr;
+    }
+
 }

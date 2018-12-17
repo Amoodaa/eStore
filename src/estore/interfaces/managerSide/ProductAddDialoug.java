@@ -9,7 +9,7 @@ package estore.interfaces.managerSide;
  *
  * @author amood
  */
-public class ProductAddDialoug extends javax.swing.JDialog {
+public class ProductAddDialoug extends javax.swing.JDialog implements Filler {
 
     /**
      * Creates new form NewJDialog
@@ -196,4 +196,14 @@ public class ProductAddDialoug extends javax.swing.JDialog {
     private javax.swing.JSpinner productPriceSpinner;
     private javax.swing.JSlider productQuantitySlider;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public String[] get() {
+        String[] arr = new String[4];
+        arr[0] = this.productName.getText();
+        arr[1] = this.productDescription.getText();
+        arr[2] = (int) this.productPriceSpinner.getValue() + "";
+        arr[3] = this.productQuantitySlider.getValue() + "";
+        return arr;
+    }
 }

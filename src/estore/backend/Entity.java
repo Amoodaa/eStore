@@ -4,7 +4,6 @@ public abstract class Entity implements Fillable {
 
     private int id;
 
-   
     public int getId() {
         return id;
     }
