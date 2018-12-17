@@ -1,6 +1,6 @@
 package estore.backend;
 
-import estore.interfaces.managerSide.Filler;
+import estore.frontend.managerSide.Filler;
 
 public interface Fillable {
 

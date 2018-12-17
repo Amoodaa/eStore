@@ -1,6 +1,6 @@
 package estore.backend;
 
-import estore.interfaces.managerSide.Filler;
+import estore.frontend.managerSide.Filler;
 import java.util.ArrayList;
 
 public class Department extends Entity {
@@ -10,8 +10,9 @@ public class Department extends Entity {
 
     @Override
     public Fillable fill(Filler filler) {
-        this.name = filler.get()[0];
-        this.description = filler.get()[1];
+        String[] get = filler.get();
+        this.name = get[0];
+        this.description = get[1];
         return this;
     }
 

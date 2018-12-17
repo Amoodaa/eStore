@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package estore.interfaces.managerSide;
+package estore.frontend.managerSide;
 
 import estore.backend.Fillable;
 

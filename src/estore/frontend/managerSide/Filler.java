@@ -1,4 +1,4 @@
-package estore.interfaces.managerSide;
+package estore.frontend.managerSide;
 
 public interface Filler {
     
