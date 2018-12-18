@@ -15,5 +15,14 @@ public class Department extends Entity {
         this.description = get[1];
         return this;
     }
-
+    //<editor-fold defaultstate="collapsed" desc="Getters">
+    
+    public String getName() {
+        return name;
+    }
+    
+    public String getDescription() {
+        return description;
+    }
+//</editor-fold>
 }

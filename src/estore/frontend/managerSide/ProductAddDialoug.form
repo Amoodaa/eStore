@@ -71,13 +71,8 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="productName" alignment="0" min="-2" pref="190" max="-2" attributes="0"/>
-                              <Component id="productQuantitySpinner" min="-2" pref="61" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="productName" alignment="0" min="-2" pref="190" max="-2" attributes="0"/>
+                      <Component id="productQuantitySpinner" min="-2" pref="61" max="-2" attributes="0"/>
                       <Group type="103" alignment="1" groupAlignment="0" attributes="0">
                           <Component id="productDepartmentComboBox" min="-2" pref="89" max="-2" attributes="0"/>
                           <Group type="103" alignment="0" groupAlignment="0" attributes="0">

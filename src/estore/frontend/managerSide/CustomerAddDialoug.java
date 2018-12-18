@@ -5,7 +5,8 @@
  */
 package estore.frontend.managerSide;
 
-import estore.backend.Fillable;
+import estore.backend.Customer;
+import estore.backend.Entity;
 
 /**
  *
@@ -16,11 +17,33 @@ public class CustomerAddDialoug extends javax.swing.JDialog implements Filler {
     /**
      * Creates new form NewJDialog
      */
-    public CustomerAddDialoug(java.awt.Frame parent, boolean modal) {
+    public CustomerAddDialoug(java.awt.Frame parent, boolean modal, Customer entity) {
         super(parent, modal);
         initComponents();
+        if (entity != null) {
+            setTextFromEntity(entity);
+        }
     }
 
+    @Override
+    public String[] get() {
+        String[] arr = new String[4];
+        arr[0] = this.customerName.getText();
+        arr[1] = this.customerAddress.getText();
+        arr[2] = this.customerUsername.getText();
+        arr[3] = this.customerPassword.getText();
+        return arr;
+    }
+
+    private void setTextFromEntity(Customer entity) {
+        this.customerId.setText(String.valueOf(((Entity) entity).getId()));
+        this.customerName.setText(entity.getName());
+        this.customerAddress.setText(entity.getName());
+        this.customerUsername.setText(entity.getName());
+        this.customerPassword.setText(entity.getName());
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -158,14 +181,12 @@ public class CustomerAddDialoug extends javax.swing.JDialog implements Filler {
             java.util.logging.Logger.getLogger(CustomerAddDialoug.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                CustomerAddDialoug dialog = new CustomerAddDialoug(new javax.swing.JFrame(), true);
+                CustomerAddDialoug dialog = new CustomerAddDialoug(new javax.swing.JFrame(), true, null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -191,14 +212,6 @@ public class CustomerAddDialoug extends javax.swing.JDialog implements Filler {
     private javax.swing.JLabel jLabel31;
     private javax.swing.JPanel jPanel9;
     // End of variables declaration//GEN-END:variables
+ //</editor-fold>
 
-    @Override
-    public String[] get() {
-        String[] arr = new String[4];
-        arr[0] = this.customerName.getText();
-        arr[1] = this.customerAddress.getText();
-        arr[2] = this.customerUsername.getText();
-        arr[3] = this.customerPassword.getText();
-        return arr;
-    }
 }

@@ -3,13 +3,12 @@ package estore.backend;
 import estore.frontend.managerSide.Filler;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Set;
 
 public abstract class Model {
 
     private Entity entity;
     private int ids;
-    Set<Integer> deletedIds;
+    HashSet<Integer> deletedIds;
     ArrayList<Entity> Entities;
     private Filler filler;
 
@@ -18,7 +17,7 @@ public abstract class Model {
     public Model() {
         this.Entities = new ArrayList<>();
         this.deletedIds = new HashSet<>();
-       // this.filler = new FormFiller();
+        // this.filler = new FormFiller();
         this.entity = new EntityWrapper(-1);
     }
 
@@ -72,7 +71,7 @@ public abstract class Model {
         this.entity = entity;
     }
 
-public class EntityWrapper extends Entity {
+    public class EntityWrapper extends Entity {
 
         public EntityWrapper(int id) {
             super.setId(id);

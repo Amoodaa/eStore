@@ -1,24 +1,38 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package estore.frontend.managerSide;
 
-/**
- *
- * @author amood
- */
+import estore.backend.Department;
+
 public class DepartmentAddDialoug extends javax.swing.JDialog implements Filler {
 
     /**
      * Creates new form NewJDialog
+     *
+     * @param parent
+     * @param modal
+     * @param entity that will be displayed
      */
-    public DepartmentAddDialoug(java.awt.Frame parent, boolean modal) {
+    public DepartmentAddDialoug(java.awt.Frame parent, boolean modal, Department entity) {
         super(parent, modal);
         initComponents();
+        if (entity != null) {
+            setTextFromEntity(entity);
+        }
     }
 
+    @Override
+    public String[] get() {
+        String[] arr = new String[2];
+        arr[0] = this.departmentName.getText();
+        arr[1] = this.departmentDescription.getText();
+        return arr;
+    }
+
+    private void setTextFromEntity(Department entity) {
+        this.departmentName.setText(entity.getName());
+        this.departmentDescription.setText(entity.getDescription());
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">     
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -117,30 +131,31 @@ public class DepartmentAddDialoug extends javax.swing.JDialog implements Filler 
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DepartmentAddDialoug.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DepartmentAddDialoug.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DepartmentAddDialoug.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DepartmentAddDialoug.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DepartmentAddDialoug.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DepartmentAddDialoug.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DepartmentAddDialoug.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DepartmentAddDialoug.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                DepartmentAddDialoug dialog = new DepartmentAddDialoug(new javax.swing.JFrame(), true);
+                DepartmentAddDialoug dialog = new DepartmentAddDialoug(new javax.swing.JFrame(), true, null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -162,12 +177,5 @@ public class DepartmentAddDialoug extends javax.swing.JDialog implements Filler 
     private javax.swing.JScrollPane jScrollPane14;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public String[] get() {
-        String[] arr = new String[2];
-        arr[0] = this.departmentName.getText();
-        arr[1] = this.departmentDescription.getText();
-        return arr;
-    }
-
+// </editor-fold> 
 }

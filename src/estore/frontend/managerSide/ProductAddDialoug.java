@@ -5,20 +5,42 @@
  */
 package estore.frontend.managerSide;
 
+import estore.backend.Product;
+
 /**
  *
  * @author amood
  */
 public class ProductAddDialoug extends javax.swing.JDialog implements Filler {
 
-    /**
-     * Creates new form NewJDialog
-     */
-    public ProductAddDialoug(java.awt.Frame parent, boolean modal) {
+    public ProductAddDialoug(java.awt.Frame parent, boolean modal, Product entity) {
         super(parent, modal);
         initComponents();
+        if (entity != null) {
+            setTextFromEntity(entity);
+        }
     }
 
+    @Override
+    public String[] get() {
+        String[] arr = new String[5];
+        arr[0] = this.productName.getText();
+        arr[1] = this.productDescription.getText();
+        arr[2] = (int) this.productQuantitySpinner.getValue() + "";
+        arr[3] = (double) this.productPriceSpinner.getValue() + "";
+        arr[4] = (String) this.productDepartmentComboBox.getSelectedItem();
+        return arr;
+    }
+
+    private void setTextFromEntity(Product entity) {
+        this.productName.setText(entity.getName());
+        this.productDescription.setText(entity.getDescription());
+        this.productQuantitySpinner.setValue(entity.getQuantity());
+        this.productPriceSpinner.setValue(entity.getPrice());
+        this.productDepartmentComboBox.setSelectedItem(entity.getDp());
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -172,18 +194,12 @@ public class ProductAddDialoug extends javax.swing.JDialog implements Filler {
             java.util.logging.Logger.getLogger(ProductAddDialoug.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                ProductAddDialoug dialog = new ProductAddDialoug(new javax.swing.JFrame(), true);
+                ProductAddDialoug dialog = new ProductAddDialoug(new javax.swing.JFrame(), true, null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -210,14 +226,5 @@ public class ProductAddDialoug extends javax.swing.JDialog implements Filler {
     private javax.swing.JSpinner productPriceSpinner;
     private javax.swing.JSpinner productQuantitySpinner;
     // End of variables declaration//GEN-END:variables
-
-    @Override
-    public String[] get() {
-        String[] arr = new String[4];
-        arr[0] = this.productName.getText();
-        arr[1] = this.productDescription.getText();
-        arr[2] = (int) this.productQuantitySpinner.getValue() + "";
-        arr[3] = (double) this.productPriceSpinner.getValue() + "";
-        return arr;
-    }
+  //</editor-fold>
 }

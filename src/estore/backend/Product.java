@@ -8,6 +8,8 @@ public class Product extends Entity {
     int quantity;
     double price;
 
+    Department dp;
+
     public Product(String name, String description, int quantity, double price) {
         this.name = name;
         this.description = description;
@@ -29,5 +31,26 @@ public class Product extends Entity {
         this.price = Double.parseDouble(get[3]);
         return this;
     }
-
+    //<editor-fold defaultstate="collapsed" desc="getters">
+    
+    public String getName() {
+        return name;
+    }
+    
+    public String getDescription() {
+        return description;
+    }
+    
+    public int getQuantity() {
+        return quantity;
+    }
+    
+    public double getPrice() {
+        return price;
+    }
+    
+    public Department getDp() {
+        return dp;
+    }
+//</editor-fold>
 }
