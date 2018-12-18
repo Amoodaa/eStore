@@ -16,19 +16,19 @@ public class Customer extends Entity {
         return this;
     }
 //<editor-fold defaultstate="collapsed" desc="Getters">
-    
+
     public String getName() {
         return name;
     }
-    
+
     public String getAddress() {
         return address;
     }
-    
+
     public String getUsername() {
         return username;
     }
-    
+
     public String getPassword() {
         return password;
     }

@@ -2,32 +2,31 @@ package estore.backend;
 
 import estore.frontend.managerSide.Filler;
 import java.util.ArrayList;
-import java.util.HashSet;
 
 public abstract class Model {
 
-    private Entity entity;
+    Entity entity;
     private int ids;
-    HashSet<Integer> deletedIds;
     ArrayList<Entity> Entities;
-    private Filler filler;
+    protected Filler filler;
+    protected static Model instance;
 
     public abstract Entity getEntity();
 
-    public Model() {
+    public abstract void update(Entity entity);
+
+    public Model(int ids) {
+        this.ids = ids;
         this.Entities = new ArrayList<>();
-        this.deletedIds = new HashSet<>();
-        // this.filler = new FormFiller();
         this.entity = new EntityWrapper(-1);
     }
 
     public void create() {
         Entity createdEntity = (Entity) this.getEntity().fill(this.getFiller());
         this.save(createdEntity);
+        createdEntity.toString();
         System.out.println(createdEntity.toString());
     }
-
-    public abstract void update(Entity entity);
 
     public int nextId() {
         return ++ids;
@@ -48,15 +47,10 @@ public abstract class Model {
     }
 
     public void deleteById(int id) {
-        deletedIds.add(id);
     }
 
     public int getIds() {
         return ids;
-    }
-
-    public void setIds(int ids) {
-        this.ids = ids;
     }
 
     public Filler getFiller() {

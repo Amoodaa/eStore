@@ -1,21 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package estore.frontend.managerSide;
 
-/**
- *
- * @author amood
- */
 public class ManagerWindow extends javax.swing.JFrame {
+
+    static ManagerWindow instance;
 
     /**
      * Creates new form ManagerWindow
      */
-    public ManagerWindow() {
+    private ManagerWindow() {
         initComponents();
+        pack();
+    }
+
+    public static ManagerWindow getInstance() {
+        if(instance == null){
+            instance = new ManagerWindow();
+        }
+        return instance;
     }
 
     /**
@@ -54,7 +55,7 @@ public class ManagerWindow extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         productPriceSpinner = new javax.swing.JSpinner();
-        productPriceSpinner1 = new javax.swing.JSpinner();
+        productQuantitySpinner = new javax.swing.JSpinner();
         productDepartmentComboBox = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         jToolBar1 = new javax.swing.JToolBar();
@@ -80,6 +81,18 @@ public class ManagerWindow extends javax.swing.JFrame {
         customerUpdateBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
+
+        jTabbedPane1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jTabbedPane1StateChanged(evt);
+            }
+        });
 
         departmentList.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         departmentList.setModel(new javax.swing.AbstractListModel<String>() {
@@ -100,6 +113,9 @@ public class ManagerWindow extends javax.swing.JFrame {
 
         jLabel21.setText("Description");
 
+        departmentName.setEditable(false);
+
+        departmentDescription.setEditable(false);
         departmentDescription.setColumns(20);
         departmentDescription.setRows(5);
         jScrollPane14.setViewportView(departmentDescription);
@@ -145,27 +161,27 @@ public class ManagerWindow extends javax.swing.JFrame {
         departmentTab.setLayout(departmentTabLayout);
         departmentTabLayout.setHorizontalGroup(
             departmentTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jToolBar2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE)
             .addGroup(departmentTabLayout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
                 .addGroup(departmentTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel19)
                     .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jToolBar2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         departmentTabLayout.setVerticalGroup(
             departmentTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(departmentTabLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(28, 28, 28)
                 .addGroup(departmentTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(departmentTabLayout.createSequentialGroup()
                         .addComponent(jLabel19)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
                 .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -190,6 +206,9 @@ public class ManagerWindow extends javax.swing.JFrame {
 
         jLabel24.setText("Description");
 
+        productName.setEditable(false);
+
+        productDescription.setEditable(false);
         productDescription.setColumns(20);
         productDescription.setRows(5);
         jScrollPane16.setViewportView(productDescription);
@@ -197,6 +216,12 @@ public class ManagerWindow extends javax.swing.JFrame {
         jLabel1.setText("Quantity");
 
         jLabel2.setText("Price");
+
+        productPriceSpinner.setEnabled(false);
+
+        productQuantitySpinner.setEnabled(false);
+
+        productDepartmentComboBox.setEnabled(false);
 
         jLabel4.setText("Department");
 
@@ -214,7 +239,7 @@ public class ManagerWindow extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(productName, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(productPriceSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(productQuantitySpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,7 +268,7 @@ public class ManagerWindow extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(productPriceSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(productQuantitySpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -262,6 +287,11 @@ public class ManagerWindow extends javax.swing.JFrame {
         jToolBar1.setRollover(true);
 
         productAddBtn.setText("Add new product");
+        productAddBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                productAddBtnActionPerformed(evt);
+            }
+        });
         jToolBar1.add(productAddBtn);
 
         productUpdateBtn.setText("Update product");
@@ -272,29 +302,29 @@ public class ManagerWindow extends javax.swing.JFrame {
         productTabLayout.setHorizontalGroup(
             productTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(productTabLayout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(productTabLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
                 .addGroup(productTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel22)
                     .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(productTabLayout.createSequentialGroup()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
         );
         productTabLayout.setVerticalGroup(
             productTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(productTabLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(24, 24, 24)
                 .addGroup(productTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(productTabLayout.createSequentialGroup()
                         .addComponent(jLabel22)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 71, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -317,15 +347,23 @@ public class ManagerWindow extends javax.swing.JFrame {
 
         jLabel26.setText("Name");
 
+        customerName.setEditable(false);
+
         jLabel3.setText("ID");
 
         customerId.setText("0");
+
+        customerAddress.setEditable(false);
 
         jLabel28.setText("Address");
 
         jLabel30.setText("Username");
 
+        customerUsername.setEditable(false);
+
         jLabel31.setText("Password");
+
+        customerPassword.setEditable(false);
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -346,7 +384,7 @@ public class ManagerWindow extends javax.swing.JFrame {
                     .addComponent(customerAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(customerUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(customerPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(133, Short.MAX_VALUE))
+                .addContainerGap(122, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -386,15 +424,15 @@ public class ManagerWindow extends javax.swing.JFrame {
         customerTab.setLayout(customerTabLayout);
         customerTabLayout.setHorizontalGroup(
             customerTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jToolBar3, javax.swing.GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE)
             .addGroup(customerTabLayout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
                 .addGroup(customerTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel25)
                     .addComponent(jScrollPane17, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jToolBar3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         customerTabLayout.setVerticalGroup(
             customerTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -416,17 +454,28 @@ public class ManagerWindow extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 596, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
+        pack();        // TODO add your handling code here:
+    }//GEN-LAST:event_jTabbedPane1StateChanged
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        pack();        // TODO add your handling code here:
+    }//GEN-LAST:event_formMouseClicked
+
+    private void productAddBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productAddBtnActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_productAddBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -512,7 +561,7 @@ public class ManagerWindow extends javax.swing.JFrame {
     private javax.swing.JList<String> productList;
     private javax.swing.JTextField productName;
     private javax.swing.JSpinner productPriceSpinner;
-    private javax.swing.JSpinner productPriceSpinner1;
+    private javax.swing.JSpinner productQuantitySpinner;
     private javax.swing.JPanel productTab;
     private javax.swing.JButton productUpdateBtn;
     // End of variables declaration//GEN-END:variables

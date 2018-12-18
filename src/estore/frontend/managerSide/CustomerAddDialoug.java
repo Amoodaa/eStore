@@ -14,9 +14,6 @@ import estore.backend.Entity;
  */
 public class CustomerAddDialoug extends javax.swing.JDialog implements Filler {
 
-    /**
-     * Creates new form NewJDialog
-     */
     public CustomerAddDialoug(java.awt.Frame parent, boolean modal, Customer entity) {
         super(parent, modal);
         initComponents();

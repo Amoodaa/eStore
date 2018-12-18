@@ -7,15 +7,7 @@ public class Product extends Entity {
     String name, description;
     int quantity;
     double price;
-
-    Department dp;
-
-    public Product(String name, String description, int quantity, double price) {
-        this.name = name;
-        this.description = description;
-        this.quantity = quantity;
-        this.price = price;
-    }
+    private Department department;
 
     @Override
     public String toString() {
@@ -31,26 +23,31 @@ public class Product extends Entity {
         this.price = Double.parseDouble(get[3]);
         return this;
     }
+
     //<editor-fold defaultstate="collapsed" desc="getters">
-    
     public String getName() {
         return name;
     }
-    
+
     public String getDescription() {
         return description;
     }
-    
+
     public int getQuantity() {
         return quantity;
     }
-    
+
     public double getPrice() {
         return price;
     }
-    
-    public Department getDp() {
-        return dp;
+
+    public Department getDepartment() {
+        return department;
     }
 //</editor-fold>
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
 }

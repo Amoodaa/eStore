@@ -37,7 +37,7 @@ public class ProductAddDialoug extends javax.swing.JDialog implements Filler {
         this.productDescription.setText(entity.getDescription());
         this.productQuantitySpinner.setValue(entity.getQuantity());
         this.productPriceSpinner.setValue(entity.getPrice());
-        this.productDepartmentComboBox.setSelectedItem(entity.getDp());
+        this.productDepartmentComboBox.setSelectedItem(entity.getDepartment());
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">

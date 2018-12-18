@@ -4,16 +4,10 @@ import estore.backend.Department;
 
 public class DepartmentAddDialoug extends javax.swing.JDialog implements Filler {
 
-    /**
-     * Creates new form NewJDialog
-     *
-     * @param parent
-     * @param modal
-     * @param entity that will be displayed
-     */
     public DepartmentAddDialoug(java.awt.Frame parent, boolean modal, Department entity) {
         super(parent, modal);
-        initComponents();
+        initComponents(); 
+        this.setVisible(true);
         if (entity != null) {
             setTextFromEntity(entity);
         }
