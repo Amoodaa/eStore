@@ -1,15 +1,13 @@
 package estore.backend;
 
 import estore.frontend.managerSide.Filler;
-import java.util.ArrayList;
 
 public abstract class Model {
 
     Entity entity;
     private int ids;
-    ArrayList<Entity> Entities;
+    java.util.ArrayList<Entity> Entities;
     protected Filler filler;
-    protected static Model instance;
 
     public abstract Entity getEntity();
 
@@ -17,14 +15,14 @@ public abstract class Model {
 
     public Model(int ids) {
         this.ids = ids;
-        this.Entities = new ArrayList<>();
+        this.Entities = new java.util.ArrayList<>();
         this.entity = new EntityWrapper(-1);
     }
 
     public void create() {
         Entity createdEntity = (Entity) this.getEntity().fill(this.getFiller());
         this.save(createdEntity);
-        createdEntity.toString();
+        ((estore.frontend.managerSide.CustomAddJDialog) this.getFiller()).clear();
         System.out.println(createdEntity.toString());
     }
 

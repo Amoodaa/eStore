@@ -15,6 +15,10 @@ public class Customer extends Entity {
         this.password = get[3];
         return this;
     }
+    @Override
+    public String toString() {
+        return id + name + " " +username+" "+ this.getClass().getName();
+    }
 //<editor-fold defaultstate="collapsed" desc="Getters">
 
     public String getName() {

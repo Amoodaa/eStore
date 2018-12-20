@@ -1,43 +1,40 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package estore.frontend.managerSide;
 
 import estore.backend.Customer;
 import estore.backend.Entity;
+import estore.frontend.invalidInputsException;
 
-/**
- *
- * @author amood
- */
-public class CustomerAddDialoug extends javax.swing.JDialog implements Filler {
+public class CustomerAddDialoug extends CustomAddJDialog implements Filler {
 
-    public CustomerAddDialoug(java.awt.Frame parent, boolean modal, Customer entity) {
+    public CustomerAddDialoug(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        if (entity != null) {
-            setTextFromEntity(entity);
-        }
     }
 
-    @Override
-    public String[] get() {
-        String[] arr = new String[4];
-        arr[0] = this.customerName.getText();
-        arr[1] = this.customerAddress.getText();
-        arr[2] = this.customerUsername.getText();
-        arr[3] = this.customerPassword.getText();
-        return arr;
-    }
-
+//    @Override
+//    public String[] get() {
+//        String[] arr = new String[4];
+//        arr[0] = this.customerName.getText();
+//        arr[1] = this.customerAddress.getText();
+//        arr[2] = this.customerUsername.getText();
+//        arr[3] = this.customerPassword.getText();
+//        return arr;
+//    }
     private void setTextFromEntity(Customer entity) {
         this.customerId.setText(String.valueOf(((Entity) entity).getId()));
         this.customerName.setText(entity.getName());
         this.customerAddress.setText(entity.getName());
         this.customerUsername.setText(entity.getName());
         this.customerPassword.setText(entity.getName());
+    }
+
+    @Override
+    public void clear() {
+        this.customerId.setText(null);
+        this.customerName.setText(null);
+        this.customerAddress.setText(null);
+        this.customerUsername.setText(null);
+        this.customerPassword.setText(null);
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">    
@@ -183,7 +180,7 @@ public class CustomerAddDialoug extends javax.swing.JDialog implements Filler {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                CustomerAddDialoug dialog = new CustomerAddDialoug(new javax.swing.JFrame(), true, null);
+                CustomerAddDialoug dialog = new CustomerAddDialoug(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -209,6 +206,21 @@ public class CustomerAddDialoug extends javax.swing.JDialog implements Filler {
     private javax.swing.JLabel jLabel31;
     private javax.swing.JPanel jPanel9;
     // End of variables declaration//GEN-END:variables
- //</editor-fold>
 
+    @Override
+    protected String[] getValidatedData() throws invalidInputsException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    protected void setTextFromEntity(Entity entity) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    protected boolean areValid(String[] arr) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    //</editor-fold>
 }

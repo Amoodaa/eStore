@@ -2,17 +2,18 @@ package estore.backend;
 
 public class ProductModel extends Model {
 
-    private static int ids = 0;
+    private static ProductModel instance;
 
     private ProductModel() {
-        super(ids);
+        super(0);//starting id
+        this.filler = new estore.frontend.managerSide.ProductAddDialoug(estore.frontend.managerSide.ManagerWindow.getInstance(), true);
     }
 
     public static ProductModel getInstance() {
         if (instance == null) {
             instance = new ProductModel();
         }
-        return (ProductModel) instance;
+        return instance;
     }
 
     @Override

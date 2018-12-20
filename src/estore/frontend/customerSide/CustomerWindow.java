@@ -11,11 +11,22 @@ package estore.frontend.customerSide;
  */
 public class CustomerWindow extends javax.swing.JFrame {
 
+    private static CustomerWindow instance;
+
+    public static CustomerWindow getInstance() {
+        if (instance == null) {
+            instance = new CustomerWindow();
+        }
+        instance.setVisible(true);
+        return instance;
+    }
+
     /**
      * Creates new form ManagerWindow
      */
-    public CustomerWindow() {
+    private CustomerWindow() {
         initComponents();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     /**

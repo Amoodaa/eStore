@@ -1,21 +1,33 @@
 package estore.frontend.managerSide;
 
+import estore.backend.CustomerModel;
+import estore.backend.DepartmentModel;
+import estore.backend.ProductModel;
+
 public class ManagerWindow extends javax.swing.JFrame {
 
-    static ManagerWindow instance;
+    private static ManagerWindow instance;
+    private static DepartmentModel dm = DepartmentModel.getInstance();
+    private static ProductModel pm = ProductModel.getInstance();
+    private static CustomerModel cm = CustomerModel.getInstance();
 
     /**
      * Creates new form ManagerWindow
      */
     private ManagerWindow() {
         initComponents();
-        pack();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+//        pack();
+//        dm = DepartmentModel.getInstance();
+//        pm = ProductModel.getInstance();
+//        cm = CustomerModel.getInstance();
     }
 
     public static ManagerWindow getInstance() {
-        if(instance == null){
+        if (instance == null) {
             instance = new ManagerWindow();
         }
+        instance.setVisible(true);
         return instance;
     }
 
@@ -152,6 +164,11 @@ public class ManagerWindow extends javax.swing.JFrame {
         jToolBar2.setRollover(true);
 
         departmentAddBtn.setText("Add new Department");
+        departmentAddBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                departmentAddBtnActionPerformed(evt);
+            }
+        });
         jToolBar2.add(departmentAddBtn);
 
         departmentUpdateBtn.setText("Update Department");
@@ -454,7 +471,7 @@ public class ManagerWindow extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 596, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -474,8 +491,12 @@ public class ManagerWindow extends javax.swing.JFrame {
 
     private void productAddBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productAddBtnActionPerformed
         // TODO add your handling code here:
-
+//        pm.create();
     }//GEN-LAST:event_productAddBtnActionPerformed
+
+    private void departmentAddBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_departmentAddBtnActionPerformed
+        dm.create();
+    }//GEN-LAST:event_departmentAddBtnActionPerformed
 
     /**
      * @param args the command line arguments

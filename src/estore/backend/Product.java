@@ -47,7 +47,7 @@ public class Product extends Entity {
 //</editor-fold>
 
     public void setDepartment(Department department) {
-        this.department = department;
+        department.addProduct(this);
     }
 
 }

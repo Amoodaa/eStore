@@ -20,7 +20,10 @@ public class Department extends Entity {
         this.description = get[1];
         return this;
     }
-
+    @Override
+    public String toString() {
+        return name + " " + description;
+    }
     //<editor-fold defaultstate="collapsed" desc="Getters">
     public String getName() {
         return name;

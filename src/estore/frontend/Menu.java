@@ -5,6 +5,9 @@
  */
 package estore.frontend;
 
+import estore.frontend.customerSide.CustomerWindow;
+import estore.frontend.managerSide.ManagerWindow;
+
 /**
  *
  * @author amood
@@ -30,8 +33,8 @@ public class Menu extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        ManagerWindowMenuBtn = new javax.swing.JMenuItem();
+        CustomerWindowMenuBtn = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(51, 102, 255));
@@ -52,11 +55,21 @@ public class Menu extends javax.swing.JFrame {
 
         jMenu1.setText("eStore");
 
-        jMenuItem1.setText("Manager Window");
-        jMenu1.add(jMenuItem1);
+        ManagerWindowMenuBtn.setText("Manager Window");
+        ManagerWindowMenuBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ManagerWindowMenuBtnActionPerformed(evt);
+            }
+        });
+        jMenu1.add(ManagerWindowMenuBtn);
 
-        jMenuItem2.setText("Customer Window");
-        jMenu1.add(jMenuItem2);
+        CustomerWindowMenuBtn.setText("Customer Window");
+        CustomerWindowMenuBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CustomerWindowMenuBtnActionPerformed(evt);
+            }
+        });
+        jMenu1.add(CustomerWindowMenuBtn);
 
         jMenuBar1.add(jMenu1);
 
@@ -75,6 +88,16 @@ public class Menu extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void ManagerWindowMenuBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ManagerWindowMenuBtnActionPerformed
+        // TODO add your handling code here:
+        ManagerWindow.getInstance().setVisible(true);
+    }//GEN-LAST:event_ManagerWindowMenuBtnActionPerformed
+
+    private void CustomerWindowMenuBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CustomerWindowMenuBtnActionPerformed
+        // TODO add your handling code here:
+        CustomerWindow.getInstance().setVisible(true);
+    }//GEN-LAST:event_CustomerWindowMenuBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -112,10 +135,10 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem CustomerWindowMenuBtn;
+    private javax.swing.JMenuItem ManagerWindowMenuBtn;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

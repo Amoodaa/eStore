@@ -1,32 +1,45 @@
 package estore.frontend.managerSide;
 
+import estore.frontend.invalidInputsException;
 import estore.backend.Department;
+import estore.backend.Entity;
 
-public class DepartmentAddDialoug extends javax.swing.JDialog implements Filler {
+public class DepartmentAddDialoug extends CustomAddJDialog {
 
-    public DepartmentAddDialoug(java.awt.Frame parent, boolean modal, Department entity) {
+    public DepartmentAddDialoug(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        initComponents(); 
-        this.setVisible(true);
-        if (entity != null) {
-            setTextFromEntity(entity);
-        }
+        initComponents();
     }
 
     @Override
-    public String[] get() {
+    protected void setTextFromEntity(Entity entity) {
+        Department dp = (Department) entity;
+        this.departmentName.setText(dp.getName());
+        this.departmentDescription.setText(dp.getDescription());
+    }
+
+    @Override
+    protected String[] getValidatedData() throws invalidInputsException {
         String[] arr = new String[2];
         arr[0] = this.departmentName.getText();
         arr[1] = this.departmentDescription.getText();
+        if (!areValid(arr)) {
+            throw new invalidInputsException();
+        }
         return arr;
     }
 
-    private void setTextFromEntity(Department entity) {
-        this.departmentName.setText(entity.getName());
-        this.departmentDescription.setText(entity.getDescription());
+    @Override
+    protected boolean areValid(String[] arr) {
+        return !arr[0].equals("");
     }
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">     
+    @Override
+    public void clear() {
+        this.departmentName.setText(null);
+        this.departmentDescription.setText(null);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -42,7 +55,7 @@ public class DepartmentAddDialoug extends javax.swing.JDialog implements Filler 
         departmentName = new javax.swing.JTextField();
         jScrollPane14 = new javax.swing.JScrollPane();
         departmentDescription = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
+        confirmBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -85,7 +98,12 @@ public class DepartmentAddDialoug extends javax.swing.JDialog implements Filler 
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButton1.setText("Confirm");
+        confirmBtn.setText("Confirm");
+        confirmBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -95,7 +113,7 @@ public class DepartmentAddDialoug extends javax.swing.JDialog implements Filler 
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(confirmBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -104,13 +122,21 @@ public class DepartmentAddDialoug extends javax.swing.JDialog implements Filler 
                 .addContainerGap()
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(confirmBtn)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
+        // TODO add your handling code here:
+        if (get() != null) {
+            this.dispose();
+        }
+    }//GEN-LAST:event_confirmBtnActionPerformed
+
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">  
     /**
      * @param args the command line arguments
      */
@@ -149,7 +175,7 @@ public class DepartmentAddDialoug extends javax.swing.JDialog implements Filler 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                DepartmentAddDialoug dialog = new DepartmentAddDialoug(new javax.swing.JFrame(), true, null);
+                DepartmentAddDialoug dialog = new DepartmentAddDialoug(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -162,9 +188,9 @@ public class DepartmentAddDialoug extends javax.swing.JDialog implements Filler 
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton confirmBtn;
     private javax.swing.JTextArea departmentDescription;
     private javax.swing.JTextField departmentName;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JPanel jPanel7;

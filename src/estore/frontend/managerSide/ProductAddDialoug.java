@@ -1,43 +1,53 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package estore.frontend.managerSide;
 
+import estore.backend.Entity;
 import estore.backend.Product;
+import estore.frontend.invalidInputsException;
 
-/**
- *
- * @author amood
- */
-public class ProductAddDialoug extends javax.swing.JDialog implements Filler {
+public class ProductAddDialoug extends CustomAddJDialog implements Filler {
 
-    public ProductAddDialoug(java.awt.Frame parent, boolean modal, Product entity) {
+    public ProductAddDialoug(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        if (entity != null) {
-            setTextFromEntity(entity);
-        }
+
     }
 
     @Override
-    public String[] get() {
+    protected String[] getValidatedData() throws invalidInputsException {
         String[] arr = new String[5];
         arr[0] = this.productName.getText();
         arr[1] = this.productDescription.getText();
         arr[2] = (int) this.productQuantitySpinner.getValue() + "";
         arr[3] = (double) this.productPriceSpinner.getValue() + "";
         arr[4] = (String) this.productDepartmentComboBox.getSelectedItem();
+        if (!areValid(arr)) {
+            throw new invalidInputsException();
+        }
         return arr;
     }
 
-    private void setTextFromEntity(Product entity) {
-        this.productName.setText(entity.getName());
-        this.productDescription.setText(entity.getDescription());
-        this.productQuantitySpinner.setValue(entity.getQuantity());
-        this.productPriceSpinner.setValue(entity.getPrice());
-        this.productDepartmentComboBox.setSelectedItem(entity.getDepartment());
+    @Override
+    protected void setTextFromEntity(Entity entity) {
+        Product pr = (Product) entity;
+        this.productName.setText(pr.getName());
+        this.productDescription.setText(pr.getDescription());
+        this.productQuantitySpinner.setValue(pr.getQuantity());
+        this.productPriceSpinner.setValue(pr.getPrice());
+        this.productDepartmentComboBox.setSelectedItem(pr.getDepartment());
+    }
+
+    @Override
+    protected boolean areValid(String[] arr) {
+        return !(arr[0] == null || Integer.parseInt(arr[2]) == 0 || Integer.parseInt(arr[3]) == 0);
+    }
+
+    @Override
+    public void clear() {
+        this.productName.setText(null);
+        this.productDescription.setText(null);
+        this.productQuantitySpinner.setValue(null);
+        this.productPriceSpinner.setValue(null);
+        this.productDepartmentComboBox.setSelectedItem(0);
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
@@ -100,11 +110,8 @@ public class ProductAddDialoug extends javax.swing.JDialog implements Filler {
                     .addComponent(jLabel24, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(productName, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(productQuantitySpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, 0))
+                    .addComponent(productName, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(productQuantitySpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(productDepartmentComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -141,6 +148,11 @@ public class ProductAddDialoug extends javax.swing.JDialog implements Filler {
         );
 
         jButton1.setText("Confirm");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -167,6 +179,10 @@ public class ProductAddDialoug extends javax.swing.JDialog implements Filler {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -199,7 +215,7 @@ public class ProductAddDialoug extends javax.swing.JDialog implements Filler {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                ProductAddDialoug dialog = new ProductAddDialoug(new javax.swing.JFrame(), true, null);
+                ProductAddDialoug dialog = new ProductAddDialoug(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -226,5 +242,6 @@ public class ProductAddDialoug extends javax.swing.JDialog implements Filler {
     private javax.swing.JSpinner productPriceSpinner;
     private javax.swing.JSpinner productQuantitySpinner;
     // End of variables declaration//GEN-END:variables
-  //</editor-fold>
+
+    //</editor-fold>
 }
