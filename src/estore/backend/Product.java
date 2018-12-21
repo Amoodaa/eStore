@@ -11,16 +11,27 @@ public class Product extends Entity {
 
     @Override
     public String toString() {
-        return name + " " + quantity + " " + price + " ";
+        return name;
     }
 
     @Override
     public Fillable fill(Filler filler) {
         String[] get = filler.get();
+        Department dp;
+        /*
+        arr[0] = this.productName.getText();
+        arr[1] = this.productDescription.getText();
+        arr[2] = (int) this.productQuantitySpinner.getValue() + "";
+        arr[3] = (double) this.productPriceSpinner.getValue() + "";
+        arr[4] = ((Department) this.productDepartmentComboBox.getSelectedItem()).toString();
+         */
         this.name = get[0];
         this.description = get[1];
         this.quantity = Integer.parseInt(get[2]);
         this.price = Double.parseDouble(get[3]);
+        System.out.println(get[4]);
+        dp = (Department) DepartmentModel.getInstance().getById(Integer.parseInt(get[4]));
+        this.setDepartment(dp);
         return this;
     }
 
@@ -46,7 +57,8 @@ public class Product extends Entity {
     }
 //</editor-fold>
 
-    public void setDepartment(Department department) {
+    void setDepartment(Department dp) {
+        this.department = dp;
         department.addProduct(this);
     }
 

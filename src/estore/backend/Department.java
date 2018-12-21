@@ -8,9 +8,12 @@ public class Department extends Entity {
     String name, description;
     ArrayList<Product> products;
 
+    public Department() {
+        this.products = new ArrayList<>();
+    }
+
     void addProduct(Product product) {
         products.add(product);
-        product.setDepartment(this);
     }
 
     @Override
@@ -22,7 +25,7 @@ public class Department extends Entity {
     }
     @Override
     public String toString() {
-        return name + " " + description;
+        return name;
     }
     //<editor-fold defaultstate="collapsed" desc="Getters">
     public String getName() {

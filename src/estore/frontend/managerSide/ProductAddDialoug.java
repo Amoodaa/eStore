@@ -1,8 +1,11 @@
 package estore.frontend.managerSide;
 
+import estore.backend.Department;
+import estore.backend.DepartmentModel;
 import estore.backend.Entity;
 import estore.backend.Product;
 import estore.frontend.invalidInputsException;
+import javax.swing.DefaultComboBoxModel;
 
 public class ProductAddDialoug extends CustomAddJDialog implements Filler {
 
@@ -15,11 +18,23 @@ public class ProductAddDialoug extends CustomAddJDialog implements Filler {
     @Override
     protected String[] getValidatedData() throws invalidInputsException {
         String[] arr = new String[5];
+        Object[] dps = DepartmentModel.getInstance().getItems();
         arr[0] = this.productName.getText();
         arr[1] = this.productDescription.getText();
         arr[2] = (int) this.productQuantitySpinner.getValue() + "";
-        arr[3] = (double) this.productPriceSpinner.getValue() + "";
-        arr[4] = (String) this.productDepartmentComboBox.getSelectedItem();
+        arr[3] = (int) this.productPriceSpinner.getValue() + "";
+        int id = -1;
+        String tmp = this.productDepartmentComboBox.getSelectedItem() + "";
+        for (Object dp : dps) {
+            if (((Department) dp).getName().equals(tmp)) {
+                id = ((Entity) dp).getId();
+            }
+            if (id != -1) {
+                arr[4] = id + "";
+                break;
+            }
+        }
+
         if (!areValid(arr)) {
             throw new invalidInputsException();
         }
@@ -37,17 +52,17 @@ public class ProductAddDialoug extends CustomAddJDialog implements Filler {
     }
 
     @Override
-    protected boolean areValid(String[] arr) {
-        return !(arr[0] == null || Integer.parseInt(arr[2]) == 0 || Integer.parseInt(arr[3]) == 0);
+    protected boolean areValid(String[] arr
+    ) {
+        return !(arr[0].equals("") || Integer.parseInt(arr[2]) == 0 || Integer.parseInt(arr[3]) == 0);
     }
 
     @Override
     public void clear() {
         this.productName.setText(null);
         this.productDescription.setText(null);
-        this.productQuantitySpinner.setValue(null);
-        this.productPriceSpinner.setValue(null);
-        this.productDepartmentComboBox.setSelectedItem(0);
+        this.productQuantitySpinner.setValue(0);
+        this.productPriceSpinner.setValue(0);
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
@@ -75,6 +90,11 @@ public class ProductAddDialoug extends CustomAddJDialog implements Filler {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder("New Product"));
 
@@ -90,7 +110,7 @@ public class ProductAddDialoug extends CustomAddJDialog implements Filler {
 
         jLabel2.setText("Price");
 
-        productPriceSpinner.setModel(new javax.swing.SpinnerNumberModel(0.0d, 0.0d, 5000.0d, 1.0d));
+        productPriceSpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, 5000, 1));
 
         productQuantitySpinner.setModel(new javax.swing.SpinnerNumberModel(1, 0, 99, 1));
 
@@ -182,7 +202,15 @@ public class ProductAddDialoug extends CustomAddJDialog implements Filler {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        if (get() != null) {
+            this.dispose();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        productDepartmentComboBox.setModel(new DefaultComboBoxModel(ManagerWindow.dm.getItems()));
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
@@ -198,16 +226,24 @@ public class ProductAddDialoug extends CustomAddJDialog implements Filler {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ProductAddDialoug.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ProductAddDialoug.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ProductAddDialoug.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ProductAddDialoug.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ProductAddDialoug.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ProductAddDialoug.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ProductAddDialoug.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ProductAddDialoug.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 

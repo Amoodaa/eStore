@@ -13,6 +13,11 @@ public abstract class Entity implements Fillable {
     }
 
     @Override
+    public String toString() {
+        return id + "";
+    }
+
+    @Override
     public boolean equals(Object o) {
         return this.getId() == ((Entity) o).getId();
     }

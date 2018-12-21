@@ -11,21 +11,33 @@ public class CustomerAddDialoug extends CustomAddJDialog implements Filler {
         initComponents();
     }
 
-//    @Override
-//    public String[] get() {
-//        String[] arr = new String[4];
-//        arr[0] = this.customerName.getText();
-//        arr[1] = this.customerAddress.getText();
-//        arr[2] = this.customerUsername.getText();
-//        arr[3] = this.customerPassword.getText();
-//        return arr;
-//    }
-    private void setTextFromEntity(Customer entity) {
+    @Override
+    protected String[] getValidatedData() throws invalidInputsException {
+        String[] arr = new String[4];
+        arr[0] = this.customerName.getText();
+        arr[1] = this.customerAddress.getText();
+        arr[2] = this.customerUsername.getText();
+        arr[3] = this.customerPassword.getText();
+        if (!areValid(arr)) {
+            throw new invalidInputsException();
+        }
+        return arr;
+    }
+
+    @Override
+    protected boolean areValid(String[] arr) {
+        return !(arr[0] == null || arr[1] == null || arr[2] == null || arr[3] == null);
+
+    }
+
+    @Override
+    protected void setTextFromEntity(Entity entity) {
+        Customer cus = (Customer) entity;
         this.customerId.setText(String.valueOf(((Entity) entity).getId()));
-        this.customerName.setText(entity.getName());
-        this.customerAddress.setText(entity.getName());
-        this.customerUsername.setText(entity.getName());
-        this.customerPassword.setText(entity.getName());
+        this.customerName.setText(cus.getName());
+        this.customerAddress.setText(cus.getName());
+        this.customerUsername.setText(cus.getName());
+        this.customerPassword.setText(cus.getName());
     }
 
     @Override
@@ -124,6 +136,11 @@ public class CustomerAddDialoug extends CustomAddJDialog implements Filler {
         );
 
         jButton1.setText("Confirm");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -148,6 +165,13 @@ public class CustomerAddDialoug extends CustomAddJDialog implements Filler {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        if (get() != null) {
+            this.dispose();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -206,21 +230,6 @@ public class CustomerAddDialoug extends CustomAddJDialog implements Filler {
     private javax.swing.JLabel jLabel31;
     private javax.swing.JPanel jPanel9;
     // End of variables declaration//GEN-END:variables
-
-    @Override
-    protected String[] getValidatedData() throws invalidInputsException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    protected void setTextFromEntity(Entity entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    protected boolean areValid(String[] arr) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     //</editor-fold>
 }

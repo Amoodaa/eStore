@@ -7,7 +7,7 @@ import estore.backend.ProductModel;
 public class ManagerWindow extends javax.swing.JFrame {
 
     private static ManagerWindow instance;
-    private static DepartmentModel dm = DepartmentModel.getInstance();
+    static DepartmentModel dm = DepartmentModel.getInstance();
     private static ProductModel pm = ProductModel.getInstance();
     private static CustomerModel cm = CustomerModel.getInstance();
 
@@ -198,7 +198,7 @@ public class ManagerWindow extends javax.swing.JFrame {
                         .addComponent(jLabel19)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
                 .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -294,7 +294,7 @@ public class ManagerWindow extends javax.swing.JFrame {
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(productDepartmentComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel24))
@@ -333,7 +333,7 @@ public class ManagerWindow extends javax.swing.JFrame {
         productTabLayout.setVerticalGroup(
             productTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(productTabLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(25, 25, 25)
                 .addGroup(productTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(productTabLayout.createSequentialGroup()
                         .addComponent(jLabel22)
@@ -341,7 +341,7 @@ public class ManagerWindow extends javax.swing.JFrame {
                         .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addGap(31, 31, 31)
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -432,6 +432,11 @@ public class ManagerWindow extends javax.swing.JFrame {
         jToolBar3.setRollover(true);
 
         customerAddBtn.setText("Add new customer");
+        customerAddBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                customerAddBtnActionPerformed(evt);
+            }
+        });
         jToolBar3.add(customerAddBtn);
 
         customerUpdateBtn.setText("Update customer");
@@ -461,7 +466,7 @@ public class ManagerWindow extends javax.swing.JFrame {
                         .addComponent(jLabel25)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
                 .addComponent(jToolBar3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -475,7 +480,9 @@ public class ManagerWindow extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTabbedPane1)
+                .addContainerGap())
         );
 
         pack();
@@ -490,13 +497,16 @@ public class ManagerWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_formMouseClicked
 
     private void productAddBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productAddBtnActionPerformed
-        // TODO add your handling code here:
-//        pm.create();
+        pm.create();
     }//GEN-LAST:event_productAddBtnActionPerformed
 
     private void departmentAddBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_departmentAddBtnActionPerformed
         dm.create();
     }//GEN-LAST:event_departmentAddBtnActionPerformed
+
+    private void customerAddBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customerAddBtnActionPerformed
+        cm.create();
+    }//GEN-LAST:event_customerAddBtnActionPerformed
 
     /**
      * @param args the command line arguments

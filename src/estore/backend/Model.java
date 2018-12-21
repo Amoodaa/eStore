@@ -37,7 +37,8 @@ public abstract class Model {
     }
 
     protected Entity getById(int id) {
-        return Entities.get(Entities.indexOf(new EntityWrapper(id)));
+        Entity tmp = Entities.get(Entities.indexOf(new EntityWrapper(id)));
+        return tmp;
     }
 
     public void delete(Entity entity) {
