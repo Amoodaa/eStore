@@ -1,8 +1,15 @@
 package estore.frontend.managerSide;
 
+import estore.backend.Customer;
 import estore.backend.CustomerModel;
+import estore.backend.Department;
 import estore.backend.DepartmentModel;
+import estore.backend.Entity;
+import estore.backend.Product;
 import estore.backend.ProductModel;
+import java.util.Arrays;
+import static java.util.Arrays.fill;
+import static java.util.Arrays.fill;
 
 public class ManagerWindow extends javax.swing.JFrame {
 
@@ -17,10 +24,6 @@ public class ManagerWindow extends javax.swing.JFrame {
     private ManagerWindow() {
         initComponents();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-//        pack();
-//        dm = DepartmentModel.getInstance();
-//        pm = ProductModel.getInstance();
-//        cm = CustomerModel.getInstance();
     }
 
     public static ManagerWindow getInstance() {
@@ -29,6 +32,45 @@ public class ManagerWindow extends javax.swing.JFrame {
         }
         instance.setVisible(true);
         return instance;
+    }
+
+    private void updateDepartmentList() {
+        departmentList.setModel(dm.getAsListModel());
+    }
+
+    private void updateProductList() {
+        productList.setModel(pm.getAsListModel());
+    }
+
+    private void updateCustomerList() {
+        customerList.setModel(cm.getAsListModel());
+    }
+
+    private void updateDepartmentInfoPanel(Department entity) {
+        departmentName.setText(entity.getName());
+        departmentDescription.setText(entity.getDescription());
+    }
+
+    private void updateProductInfoPanel(Product entity) {
+        productName.setText(entity.getName());
+        productQuantity.setText(entity.getQuantity() + "");
+        productPrice.setText(entity.getPrice() + "");
+        productDepartment.setText(entity.getDepartment().toString());
+        productDescription.setText(entity.getDescription());
+    }
+
+    private void updateCustomerInfoPanel(Customer entity) {
+        customerId.setText(entity.getId() + "");
+        customerName.setText(entity.getName());
+        customerUsername.setText(entity.getUsername());
+        customerAddress.setText(entity.getAddress());
+        char[] pass = new char[entity.getPassword().length()];
+        java.util.Arrays.fill(pass, '*');
+        String pas = "";
+        for (int i = 0; i < pass.length; i++) {
+            pas += pass[i];
+        }
+        customerPassword.setText(pas);
     }
 
     /**
@@ -45,7 +87,7 @@ public class ManagerWindow extends javax.swing.JFrame {
         jScrollPane13 = new javax.swing.JScrollPane();
         departmentList = new javax.swing.JList<>();
         jLabel19 = new javax.swing.JLabel();
-        jPanel7 = new javax.swing.JPanel();
+        DepartmentInfoPanel = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         departmentName = new javax.swing.JTextField();
@@ -66,10 +108,10 @@ public class ManagerWindow extends javax.swing.JFrame {
         productDescription = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        productPriceSpinner = new javax.swing.JSpinner();
-        productQuantitySpinner = new javax.swing.JSpinner();
-        productDepartmentComboBox = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
+        productQuantity = new javax.swing.JTextField();
+        productPrice = new javax.swing.JTextField();
+        productDepartment = new javax.swing.JTextField();
         jToolBar1 = new javax.swing.JToolBar();
         productAddBtn = new javax.swing.JButton();
         productUpdateBtn = new javax.swing.JButton();
@@ -105,6 +147,11 @@ public class ManagerWindow extends javax.swing.JFrame {
                 jTabbedPane1StateChanged(evt);
             }
         });
+        jTabbedPane1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                jTabbedPane1MouseMoved(evt);
+            }
+        });
 
         departmentList.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         departmentList.setModel(new javax.swing.AbstractListModel<String>() {
@@ -112,14 +159,18 @@ public class ManagerWindow extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        departmentList.setSelectedIndex(0
-        );
+        departmentList.setSelectedIndex(0);
+        departmentList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                departmentListValueChanged(evt);
+            }
+        });
         jScrollPane13.setViewportView(departmentList);
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel19.setText("Department List");
 
-        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(departmentList.getSelectedValue() + ":"));
+        DepartmentInfoPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Department:"));
 
         jLabel20.setText("Name");
 
@@ -132,30 +183,30 @@ public class ManagerWindow extends javax.swing.JFrame {
         departmentDescription.setRows(5);
         jScrollPane14.setViewportView(departmentDescription);
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
+        javax.swing.GroupLayout DepartmentInfoPanelLayout = new javax.swing.GroupLayout(DepartmentInfoPanel);
+        DepartmentInfoPanel.setLayout(DepartmentInfoPanelLayout);
+        DepartmentInfoPanelLayout.setHorizontalGroup(
+            DepartmentInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(DepartmentInfoPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(DepartmentInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel21)
                     .addComponent(jLabel20))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(DepartmentInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane14, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(departmentName, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
+        DepartmentInfoPanelLayout.setVerticalGroup(
+            DepartmentInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(DepartmentInfoPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(DepartmentInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel20)
                     .addComponent(departmentName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(DepartmentInfoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel21)
                     .addComponent(jScrollPane14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -185,7 +236,7 @@ public class ManagerWindow extends javax.swing.JFrame {
                     .addComponent(jLabel19)
                     .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(DepartmentInfoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         departmentTabLayout.setVerticalGroup(
@@ -193,7 +244,7 @@ public class ManagerWindow extends javax.swing.JFrame {
             .addGroup(departmentTabLayout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addGroup(departmentTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(DepartmentInfoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(departmentTabLayout.createSequentialGroup()
                         .addComponent(jLabel19)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -212,6 +263,11 @@ public class ManagerWindow extends javax.swing.JFrame {
         });
         productList.setSelectedIndex(0
         );
+        productList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                productListValueChanged(evt);
+            }
+        });
         jScrollPane15.setViewportView(productList);
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -234,13 +290,13 @@ public class ManagerWindow extends javax.swing.JFrame {
 
         jLabel2.setText("Price");
 
-        productPriceSpinner.setEnabled(false);
-
-        productQuantitySpinner.setEnabled(false);
-
-        productDepartmentComboBox.setEnabled(false);
-
         jLabel4.setText("Department");
+
+        productQuantity.setEditable(false);
+
+        productPrice.setEditable(false);
+
+        productDepartment.setEditable(false);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -253,10 +309,12 @@ public class ManagerWindow extends javax.swing.JFrame {
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel23))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(productName, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(productQuantitySpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(productName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                                .addComponent(productQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(154, 154, 154))))
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -264,9 +322,9 @@ public class ManagerWindow extends javax.swing.JFrame {
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(productPriceSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(productDepartmentComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(101, 101, 101)))
+                            .addComponent(productDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(productPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(97, 97, 97)))
                 .addGap(100, 100, 100))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
@@ -285,15 +343,15 @@ public class ManagerWindow extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(productQuantitySpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(productQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(productPriceSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(productPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(productDepartmentComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel4)
+                    .addComponent(productDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -355,6 +413,11 @@ public class ManagerWindow extends javax.swing.JFrame {
         });
         customerList.setSelectedIndex(0
         );
+        customerList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                customerListValueChanged(evt);
+            }
+        });
         jScrollPane17.setViewportView(customerList);
 
         jLabel25.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -498,15 +561,49 @@ public class ManagerWindow extends javax.swing.JFrame {
 
     private void productAddBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productAddBtnActionPerformed
         pm.create();
+        updateProductList();
     }//GEN-LAST:event_productAddBtnActionPerformed
 
     private void departmentAddBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_departmentAddBtnActionPerformed
         dm.create();
+        updateDepartmentList();
     }//GEN-LAST:event_departmentAddBtnActionPerformed
 
     private void customerAddBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customerAddBtnActionPerformed
         cm.create();
+        updateCustomerList();
     }//GEN-LAST:event_customerAddBtnActionPerformed
+
+    private void jTabbedPane1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTabbedPane1MouseMoved
+
+    private void departmentListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_departmentListValueChanged
+        // TODO add your handling code here:
+        try {
+            Entity entity = dm.getByName(departmentList.getSelectedValue());
+            updateDepartmentInfoPanel((Department) entity);
+        } catch (ArrayIndexOutOfBoundsException e) {
+        }
+    }//GEN-LAST:event_departmentListValueChanged
+
+    private void productListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_productListValueChanged
+        // TODO add your handling code here:
+        try {
+            Entity entity = pm.getByName(productList.getSelectedValue());
+            updateProductInfoPanel((Product) entity);
+        } catch (ArrayIndexOutOfBoundsException e) {
+        }
+    }//GEN-LAST:event_productListValueChanged
+
+    private void customerListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_customerListValueChanged
+        // TODO add your handling code here:
+        try {
+            Entity entity = cm.getByName(customerList.getSelectedValue());
+            updateCustomerInfoPanel((Customer) entity);
+        } catch (ArrayIndexOutOfBoundsException e) {
+        }
+    }//GEN-LAST:event_customerListValueChanged
 
     /**
      * @param args the command line arguments
@@ -544,6 +641,7 @@ public class ManagerWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel DepartmentInfoPanel;
     private javax.swing.JButton customerAddBtn;
     private javax.swing.JTextField customerAddress;
     private javax.swing.JLabel customerId;
@@ -574,7 +672,6 @@ public class ManagerWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane13;
@@ -587,13 +684,14 @@ public class ManagerWindow extends javax.swing.JFrame {
     private javax.swing.JToolBar jToolBar2;
     private javax.swing.JToolBar jToolBar3;
     private javax.swing.JButton productAddBtn;
-    private javax.swing.JComboBox<String> productDepartmentComboBox;
+    private javax.swing.JTextField productDepartment;
     private javax.swing.JTextArea productDescription;
     private javax.swing.JList<String> productList;
     private javax.swing.JTextField productName;
-    private javax.swing.JSpinner productPriceSpinner;
-    private javax.swing.JSpinner productQuantitySpinner;
+    private javax.swing.JTextField productPrice;
+    private javax.swing.JTextField productQuantity;
     private javax.swing.JPanel productTab;
     private javax.swing.JButton productUpdateBtn;
     // End of variables declaration//GEN-END:variables
+
 }
