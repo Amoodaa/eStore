@@ -1,6 +1,5 @@
 package estore.frontend.managerSide;
 
-import estore.backend.Department;
 import estore.backend.DepartmentModel;
 import estore.backend.Entity;
 import estore.backend.Product;
@@ -18,22 +17,13 @@ public class ProductAddDialoug extends CustomAddJDialog implements Filler {
     @Override
     protected String[] getValidatedData() throws invalidInputsException {
         String[] arr = new String[5];
-        Object[] dps = DepartmentModel.getInstance().getItems();
+        DepartmentModel dm = DepartmentModel.getInstance();
         arr[0] = this.productName.getText();
         arr[1] = this.productDescription.getText();
         arr[2] = (int) this.productQuantitySpinner.getValue() + "";
         arr[3] = (int) this.productPriceSpinner.getValue() + "";
         int id = -1;
-        String tmp = this.productDepartmentComboBox.getSelectedItem() + "";
-        for (Object dp : dps) {
-            if (((Department) dp).getName().equals(tmp)) {
-                id = ((Entity) dp).getId();
-            }
-            if (id != -1) {
-                arr[4] = id + "";
-                break;
-            }
-        }
+        arr[4] = dm.getByName(this.productDepartmentComboBox.getSelectedItem() + "").getId() + "";
 
         if (!areValid(arr)) {
             throw new invalidInputsException();
