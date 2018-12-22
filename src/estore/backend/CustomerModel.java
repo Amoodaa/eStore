@@ -26,4 +26,14 @@ public class CustomerModel extends Model {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    public boolean login(String username, String password) {
+        return Entities.stream().anyMatch((en) -> (((Customer) en).logsIn(username, password)));
+        /* above equals
+           for (Entity en : Entities) {
+            if (((Customer) en).logsIn(username, password)) {
+                return true;    
+            }
+        return false;f
+        }*/
+    }
 }

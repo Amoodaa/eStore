@@ -34,4 +34,9 @@ public class Customer extends Entity {
         return password;
     }
 //</editor-fold>
+
+    boolean logsIn(String username, String password) {
+        return (this.username == null ? username == null : this.username.equals(username))
+                && (this.password == null ? password == null : this.password.equals(password));
+    }
 }

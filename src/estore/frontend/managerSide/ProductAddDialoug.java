@@ -42,8 +42,7 @@ public class ProductAddDialoug extends CustomAddJDialog implements Filler {
     }
 
     @Override
-    protected boolean areValid(String[] arr
-    ) {
+    protected boolean areValid(String[] arr) {
         return !(arr[0].equals("") || Integer.parseInt(arr[2]) == 0 || Integer.parseInt(arr[3]) == 0);
     }
 

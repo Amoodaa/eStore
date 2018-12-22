@@ -5,6 +5,8 @@
  */
 package estore.frontend.customerSide;
 
+import estore.backend.CustomerModel;
+
 /**
  *
  * @author amood
@@ -12,6 +14,9 @@ package estore.frontend.customerSide;
 public class CustomerWindow extends javax.swing.JFrame {
 
     private static CustomerWindow instance;
+    private static CustomerModel cm = CustomerModel.getInstance();
+    private static boolean isLogged;
+    private LoginDialog log;
 
     public static CustomerWindow getInstance() {
         if (instance == null) {
@@ -27,7 +32,9 @@ public class CustomerWindow extends javax.swing.JFrame {
     private CustomerWindow() {
         initComponents();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        log = new LoginDialog(this, true);
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -66,6 +73,11 @@ public class CustomerWindow extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jButton1.setText("Login");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("View Cart");
 
@@ -274,6 +286,13 @@ public class CustomerWindow extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        String[] cre = log.get();
+        isLogged = cm.login(cre[0], cre[1]);
+        System.out.println(isLogged);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
