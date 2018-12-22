@@ -3,6 +3,7 @@ package estore.backend;
 public abstract class Entity implements Fillable {
 
     protected int id;
+    protected String name;
 
     public int getId() {
         return id;
@@ -10,6 +11,10 @@ public abstract class Entity implements Fillable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     @Override
