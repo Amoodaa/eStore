@@ -4,7 +4,7 @@ import estore.frontend.managerSide.Filler;
 
 public class Customer extends Entity {
 
-    String name, address, username, password;
+    private String address, username, password;
 
     @Override
     public Fillable fill(Filler filler) {
@@ -15,15 +15,12 @@ public class Customer extends Entity {
         this.password = get[3];
         return this;
     }
+
     @Override
     public String toString() {
-        return id + name + " " +username+" "+ this.getClass().getName();
-    }
-//<editor-fold defaultstate="collapsed" desc="Getters">
-
-    public String getName() {
         return name;
     }
+//<editor-fold defaultstate="collapsed" desc="Getters">
 
     public String getAddress() {
         return address;
