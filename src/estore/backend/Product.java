@@ -4,14 +4,14 @@ import estore.frontend.managerSide.Filler;
 
 public class Product extends Entity {
 
-    String name, description;
-    int quantity;
-    double price;
+    private String description;
+    private int quantity;
+    private double price;
     private Department department;
 
     @Override
     public String toString() {
-        return name;
+        return getName();
     }
 
     @Override
@@ -36,10 +36,6 @@ public class Product extends Entity {
     }
 
     //<editor-fold defaultstate="collapsed" desc="getters">
-    public String getName() {
-        return name;
-    }
-
     public String getDescription() {
         return description;
     }
