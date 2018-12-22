@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 public class Department extends Entity {
 
-    String name, description;
-    ArrayList<Product> products;
+    private String description;
+    private ArrayList<Product> products;
 
     public Department() {
         this.products = new ArrayList<>();
@@ -23,15 +23,13 @@ public class Department extends Entity {
         this.description = get[1];
         return this;
     }
+
     @Override
     public String toString() {
-        return name;
-    }
-    //<editor-fold defaultstate="collapsed" desc="Getters">
-    public String getName() {
-        return name;
+        return getName();
     }
 
+    //<editor-fold defaultstate="collapsed" desc="Getters">
     public String getDescription() {
         return description;
     }
