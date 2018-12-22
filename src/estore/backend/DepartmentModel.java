@@ -26,7 +26,4 @@ public class DepartmentModel extends Model {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public Object[] getItems() {
-        return Entities.toArray();
-    }
 }
