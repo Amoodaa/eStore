@@ -7,9 +7,6 @@ import estore.backend.DepartmentModel;
 import estore.backend.Entity;
 import estore.backend.Product;
 import estore.backend.ProductModel;
-import java.util.Arrays;
-import static java.util.Arrays.fill;
-import static java.util.Arrays.fill;
 
 public class ManagerWindow extends javax.swing.JFrame {
 
