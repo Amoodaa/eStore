@@ -1,6 +1,7 @@
 package estore.backend;
 
 import estore.frontend.managerSide.Filler;
+import javax.swing.DefaultListModel;
 
 public abstract class Model {
 
@@ -36,9 +37,24 @@ public abstract class Model {
         return entity;
     }
 
-    protected Entity getById(int id) {
-        Entity tmp = Entities.get(Entities.indexOf(new EntityWrapper(id)));
-        return tmp;
+    public Entity getById(int id) {
+        return Entities.get(Entities.indexOf(new EntityWrapper(id)));
+    }
+
+    public Entity getByName(String name) {
+        return Entities.get(Entities.indexOf(new EntityWrapper(name)));
+    }
+
+    public Object[] getItems() {
+        return Entities.toArray();
+    }
+
+    public DefaultListModel getAsListModel() {
+        DefaultListModel<String> lm = new DefaultListModel<>();
+        for (Object e : this.getItems()) {
+            lm.addElement(e.toString());
+        }
+        return lm;
     }
 
     public void delete(Entity entity) {
@@ -68,6 +84,15 @@ public abstract class Model {
 
         public EntityWrapper(int id) {
             super.setId(id);
+        }
+
+        public EntityWrapper(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            return super.equals(o) || (this.name == null ? ((Entity) o).getName() == null : this.name.equals(((Entity) o).getName())); //To change body of generated methods, choose Tools | Templates.
         }
 
         @Override
