@@ -1,29 +1,25 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package estore.frontend.customerSide;
 
+import estore.backend.Customer;
 import estore.backend.CustomerModel;
+import estore.backend.DepartmentModel;
+import estore.backend.Product;
+import estore.backend.ProductModel;
+import javax.swing.JOptionPane;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeNode;
 
-/**
- *
- * @author amood
- */
 public class CustomerWindow extends javax.swing.JFrame {
 
-    private static CustomerWindow instance;
+    private static DepartmentModel dm = DepartmentModel.getInstance();
+    private static ProductModel pm = ProductModel.getInstance();
     private static CustomerModel cm = CustomerModel.getInstance();
-    private static boolean isLogged;
+    private boolean isLogged;
     private LoginDialog log;
+    private Customer loggedCustomer;
 
     public static CustomerWindow getInstance() {
-        if (instance == null) {
-            instance = new CustomerWindow();
-        }
-        instance.setVisible(true);
-        return instance;
+        return new CustomerWindow();
     }
 
     /**
@@ -33,9 +29,50 @@ public class CustomerWindow extends javax.swing.JFrame {
         initComponents();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         log = new LoginDialog(this, true);
+        isLogged = false;
+    }
+//<editor-fold defaultstate="collapsed" desc="login">
+
+    void logBtnAction() {
+        if (isLogged) {
+            logout();
+            LogInOutBtn.setText("Login");
+            welcomeMsgLabel.setText("");
+        } else {
+            login();
+            if (loggedCustomer != null) {
+                welcomeMsgLabel.setText("Welcome, " + loggedCustomer.getName() + ".");
+                LogInOutBtn.setText("Logout");
+            }
+        }
+        isLogged = loggedCustomer != null;
+        viewCartBtn.setEnabled(isLogged);
+        addItemToCartBtn.setEnabled(isLogged);
     }
 
+    void login() {
+        String[] cre = log.get();
+        loggedCustomer = cm.login(cre[0], cre[1]);
+    }
 
+    void logout() {
+        loggedCustomer = null;
+    }
+//</editor-fold>
+
+    private void updateProductInfoPanel(Product entity) {
+        productName.setText(entity.getName());
+        productQuantity.setText(entity.getQuantity() + "");
+        productPrice.setText(entity.getPrice() + "");
+        productDepartment.setText(entity.getDepartment().toString());
+        productDescription.setText(entity.getDescription());
+    }
+
+    private void updateTreeList() {
+        productTree.setModel(DepartmentModel.getInstance().getItemsAsTreeModel());
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -46,11 +83,12 @@ public class CustomerWindow extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        LogInOutBtn = new javax.swing.JButton();
+        viewCartBtn = new javax.swing.JButton();
+        welcomeMsgLabel = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTree1 = new javax.swing.JTree();
+        productTree = new javax.swing.JTree();
         jPanel8 = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
@@ -61,25 +99,35 @@ public class CustomerWindow extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         productQuantity = new javax.swing.JTextField();
         productPrice = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        productDepartment = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
-        jSpinner1 = new javax.swing.JSpinner();
+        quantitySpinner = new javax.swing.JSpinner();
         jLabel3 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        addItemToCartBtn = new javax.swing.JButton();
+        notifiyCheckbox = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Welcome to eStore");
-
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        jButton1.setText("Login");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
             }
         });
 
-        jButton2.setText("View Cart");
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        LogInOutBtn.setText("Login");
+        LogInOutBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LogInOutBtnActionPerformed(evt);
+            }
+        });
+
+        viewCartBtn.setText("View Cart");
+        viewCartBtn.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -87,9 +135,11 @@ public class CustomerWindow extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1)
+                .addComponent(LogInOutBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(welcomeMsgLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addComponent(viewCartBtn)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -97,8 +147,9 @@ public class CustomerWindow extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(LogInOutBtn)
+                    .addComponent(viewCartBtn)
+                    .addComponent(welcomeMsgLabel))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -135,8 +186,13 @@ public class CustomerWindow extends javax.swing.JFrame {
         treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("bananas");
         treeNode2.add(treeNode3);
         treeNode1.add(treeNode2);
-        jTree1.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        jScrollPane1.setViewportView(jTree1);
+        productTree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        productTree.addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
+            public void valueChanged(javax.swing.event.TreeSelectionEvent evt) {
+                productTreeValueChanged(evt);
+            }
+        });
+        jScrollPane1.setViewportView(productTree);
 
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder("Detailed View"));
 
@@ -159,6 +215,10 @@ public class CustomerWindow extends javax.swing.JFrame {
 
         productPrice.setEditable(false);
 
+        jLabel4.setText("Department");
+
+        productDepartment.setEditable(false);
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
@@ -178,7 +238,12 @@ public class CustomerWindow extends javax.swing.JFrame {
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(productName, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane16, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(productPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(productPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(productDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(productQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -196,7 +261,9 @@ public class CustomerWindow extends javax.swing.JFrame {
                 .addGap(11, 11, 11)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(productPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(productPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(productDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -206,9 +273,15 @@ public class CustomerWindow extends javax.swing.JFrame {
 
         jLabel3.setText("Quantity");
 
-        jButton3.setText("Add to Cart");
+        addItemToCartBtn.setText("Add to Cart");
+        addItemToCartBtn.setEnabled(false);
+        addItemToCartBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addItemToCartBtnActionPerformed(evt);
+            }
+        });
 
-        jCheckBox1.setText("notify when more is avaliable");
+        notifiyCheckbox.setText("notify when more is avaliable");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -218,11 +291,11 @@ public class CustomerWindow extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(quantitySpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBox1)
+                .addComponent(notifiyCheckbox)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton3)
+                .addComponent(addItemToCartBtn)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -230,10 +303,10 @@ public class CustomerWindow extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(quantitySpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(jButton3)
-                    .addComponent(jCheckBox1))
+                    .addComponent(addItemToCartBtn)
+                    .addComponent(notifiyCheckbox))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -287,12 +360,32 @@ public class CustomerWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void LogInOutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogInOutBtnActionPerformed
+        logBtnAction();
+    }//GEN-LAST:event_LogInOutBtnActionPerformed
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        updateTreeList();
+    }//GEN-LAST:event_formWindowGainedFocus
+
+    private void addItemToCartBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addItemToCartBtnActionPerformed
+
+        DefaultMutableTreeNode tn = (DefaultMutableTreeNode) productTree.getSelectionModel().getSelectionPath().getLastPathComponent();
+        Product pr = (Product) pm.getByName(tn.getUserObject().toString());
+
+        int orderQuantity = (int) quantitySpinner.getValue();
+        if (orderQuantity <= pr.getQuantity()) {
+            loggedCustomer.getCart().addItem(orderQuantity, pr);
+        } else {
+            System.out.println(JOptionPane.showConfirmDialog(this, "insufficient", "", JOptionPane.YES_NO_OPTION));
+        }
+    }//GEN-LAST:event_addItemToCartBtnActionPerformed
+
+    private void productTreeValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_productTreeValueChanged
         // TODO add your handling code here:
-        String[] cre = log.get();
-        isLogged = cm.login(cre[0], cre[1]);
-        System.out.println(isLogged);
-    }//GEN-LAST:event_jButton1ActionPerformed
+        DefaultMutableTreeNode tn = (DefaultMutableTreeNode) productTree.getSelectionModel().getSelectionPath().getLastPathComponent();
+        updateProductInfoPanel((Product) pm.getByName(tn.getUserObject().toString()));
+    }//GEN-LAST:event_productTreeValueChanged
 
     /**
      * @param args the command line arguments
@@ -320,7 +413,7 @@ public class CustomerWindow extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(CustomerWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
+
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -331,26 +424,30 @@ public class CustomerWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JButton LogInOutBtn;
+    private javax.swing.JButton addItemToCartBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane16;
-    private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JTree jTree1;
+    private javax.swing.JCheckBox notifiyCheckbox;
+    private javax.swing.JTextField productDepartment;
     private javax.swing.JTextArea productDescription;
     private javax.swing.JTextField productName;
     private javax.swing.JTextField productPrice;
     private javax.swing.JTextField productQuantity;
+    private javax.swing.JTree productTree;
+    private javax.swing.JSpinner quantitySpinner;
+    private javax.swing.JButton viewCartBtn;
+    private javax.swing.JLabel welcomeMsgLabel;
     // End of variables declaration//GEN-END:variables
+  //</editor-fold>
 }

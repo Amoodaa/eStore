@@ -5,6 +5,11 @@ import estore.frontend.managerSide.Filler;
 public class Customer extends Entity {
 
     private String address, username, password;
+    private Cart cart;
+
+    public Customer() {
+        this.cart = new Cart();
+    }
 
     @Override
     public Fillable fill(Filler filler) {
@@ -32,6 +37,10 @@ public class Customer extends Entity {
 
     public String getPassword() {
         return password;
+    }
+
+    public Cart getCart() {
+        return cart;
     }
 //</editor-fold>
 

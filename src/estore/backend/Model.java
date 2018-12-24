@@ -1,7 +1,6 @@
 package estore.backend;
 
 import estore.frontend.managerSide.Filler;
-import javax.swing.DefaultListModel;
 
 public abstract class Model {
 
@@ -20,11 +19,10 @@ public abstract class Model {
         this.entity = new EntityWrapper(-1);
     }
 
-    public void create() {
+    public Entity create() {
         Entity createdEntity = (Entity) this.getEntity().fill(this.getFiller());
-        this.save(createdEntity);
         ((estore.frontend.managerSide.CustomAddJDialog) this.getFiller()).clear();
-        System.out.println(createdEntity.toString());
+        return this.save(createdEntity);
     }
 
     public int nextId() {
@@ -49,8 +47,8 @@ public abstract class Model {
         return Entities.toArray();
     }
 
-    public DefaultListModel getAsListModel() {
-        DefaultListModel<String> lm = new DefaultListModel<>();
+    public javax.swing.DefaultListModel getAsListModel() {
+        javax.swing.DefaultListModel<String> lm = new javax.swing.DefaultListModel<>();
         for (Object e : this.getItems()) {
             lm.addElement(e.toString());
         }

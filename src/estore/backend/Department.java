@@ -16,6 +16,10 @@ public class Department extends Entity {
         products.add(product);
     }
 
+    public Object[] getProducts() {
+        return this.products.toArray();
+    }
+
     @Override
     public Fillable fill(Filler filler) {
         String[] get = filler.get();

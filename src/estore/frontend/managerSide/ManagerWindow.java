@@ -7,11 +7,12 @@ import estore.backend.DepartmentModel;
 import estore.backend.Entity;
 import estore.backend.Product;
 import estore.backend.ProductModel;
+import javax.swing.JOptionPane;
 
 public class ManagerWindow extends javax.swing.JFrame {
 
     private static ManagerWindow instance;
-    static DepartmentModel dm = DepartmentModel.getInstance();
+    private static DepartmentModel dm = DepartmentModel.getInstance();
     private static ProductModel pm = ProductModel.getInstance();
     private static CustomerModel cm = CustomerModel.getInstance();
 
@@ -27,7 +28,6 @@ public class ManagerWindow extends javax.swing.JFrame {
         if (instance == null) {
             instance = new ManagerWindow();
         }
-        instance.setVisible(true);
         return instance;
     }
 
@@ -252,6 +252,8 @@ public class ManagerWindow extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Department", departmentTab);
 
+        productTab.setFocusable(false);
+
         productList.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         productList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "wawa" };
@@ -359,6 +361,7 @@ public class ManagerWindow extends javax.swing.JFrame {
         jToolBar1.setRollover(true);
 
         productAddBtn.setText("Add new product");
+        productAddBtn.setEnabled(false);
         productAddBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 productAddBtnActionPerformed(evt);
@@ -367,6 +370,7 @@ public class ManagerWindow extends javax.swing.JFrame {
         jToolBar1.add(productAddBtn);
 
         productUpdateBtn.setText("Update product");
+        productUpdateBtn.setEnabled(false);
         jToolBar1.add(productUpdateBtn);
 
         javax.swing.GroupLayout productTabLayout = new javax.swing.GroupLayout(productTab);
@@ -557,26 +561,39 @@ public class ManagerWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_formMouseClicked
 
     private void productAddBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productAddBtnActionPerformed
-        pm.create();
+        if (pm.create() == null) {
+            JOptionPane.showMessageDialog(null, "product not created");
+        }
         updateProductList();
     }//GEN-LAST:event_productAddBtnActionPerformed
 
     private void departmentAddBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_departmentAddBtnActionPerformed
-        dm.create();
+        if (dm.create() == null) {
+            JOptionPane.showMessageDialog(null, "department not created");
+
+        }
+        productAddBtn.setEnabled(true);
+//        productUpdateBtn.setEnabled(true);
         updateDepartmentList();
     }//GEN-LAST:event_departmentAddBtnActionPerformed
 
     private void customerAddBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customerAddBtnActionPerformed
-        cm.create();
+        if (cm.create() == null) {
+            JOptionPane.showMessageDialog(null, "Customer not created try again,username may not be unique");
+        }
         updateCustomerList();
     }//GEN-LAST:event_customerAddBtnActionPerformed
 
     private void jTabbedPane1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseMoved
-        // TODO add your handling code here:
+        // TODO add your handling code here:     
+
+
     }//GEN-LAST:event_jTabbedPane1MouseMoved
 
     private void departmentListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_departmentListValueChanged
-        // TODO add your handling code here:
+        // TODO add your handling code here:     
+        tests();
+
         try {
             Entity entity = dm.getByName(departmentList.getSelectedValue());
             updateDepartmentInfoPanel((Department) entity);
@@ -690,5 +707,11 @@ public class ManagerWindow extends javax.swing.JFrame {
     private javax.swing.JPanel productTab;
     private javax.swing.JButton productUpdateBtn;
     // End of variables declaration//GEN-END:variables
+
+    private void tests() {
+        departmentAddBtn.doClick();
+        productAddBtn.doClick();
+        customerAddBtn.doClick();
+    }
 
 }

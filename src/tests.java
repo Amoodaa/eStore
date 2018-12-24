@@ -7,9 +7,6 @@ public class tests {
         DepartmentModel dm = DepartmentModel.getInstance();
         ProductModel pm = ProductModel.getInstance();
         CustomerModel cm = CustomerModel.getInstance();
-        dm.create();
-        pm.create();
-        cm.create();
-        System.exit(0);
+        dm.getItemsAsTreeModel();
     }
 }

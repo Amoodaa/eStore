@@ -17,6 +17,15 @@ public class CustomerModel extends Model {
     }
 
     @Override
+    protected Entity save(Entity entity) {
+        Customer cus = (Customer) entity;
+        if (isUnique(cus)) {
+            return super.save(entity);
+        }
+        return null;
+    }
+
+    @Override
     public Entity getEntity() {
         return new Customer();
     }
@@ -26,14 +35,22 @@ public class CustomerModel extends Model {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public boolean login(String username, String password) {
-        return Entities.stream().anyMatch((en) -> (((Customer) en).logsIn(username, password)));
-        /* above equals
-           for (Entity en : Entities) {
-            if (((Customer) en).logsIn(username, password)) {
-                return true;    
+    private boolean isUnique(Customer cus) {
+        for (Object en : this.getItems()) {
+            if (cus.getUsername().equalsIgnoreCase(((Customer) en).getUsername())) {
+                return false;
             }
-        return false;f
-        }*/
+        }
+        return true;
     }
+
+    public Customer login(String username, String password) {
+        for (Entity en : Entities) {
+            if (((Customer) en).logsIn(username, password)) {
+                return ((Customer) en);
+            }
+        }
+        return null;
+    }
+
 }

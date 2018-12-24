@@ -22,7 +22,6 @@ public class ProductAddDialoug extends CustomAddJDialog implements Filler {
         arr[1] = this.productDescription.getText();
         arr[2] = (int) this.productQuantitySpinner.getValue() + "";
         arr[3] = (int) this.productPriceSpinner.getValue() + "";
-        int id = -1;
         arr[4] = dm.getByName(this.productDepartmentComboBox.getSelectedItem() + "").getId() + "";
 
         if (!areValid(arr)) {
@@ -198,7 +197,7 @@ public class ProductAddDialoug extends CustomAddJDialog implements Filler {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
-        productDepartmentComboBox.setModel(new DefaultComboBoxModel(ManagerWindow.dm.getItems()));
+        productDepartmentComboBox.setModel(new DefaultComboBoxModel(DepartmentModel.getInstance().getItems()));
     }//GEN-LAST:event_formWindowActivated
 
     /**

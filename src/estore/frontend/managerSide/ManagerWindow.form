@@ -235,6 +235,9 @@
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="productTab">
+          <Properties>
+            <Property name="focusable" type="boolean" value="false"/>
+          </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Product">
@@ -483,6 +486,7 @@
                 <Component class="javax.swing.JButton" name="productAddBtn">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Add new product"/>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="productAddBtnActionPerformed"/>
@@ -491,6 +495,7 @@
                 <Component class="javax.swing.JButton" name="productUpdateBtn">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Update product"/>
+                    <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
               </SubComponents>
