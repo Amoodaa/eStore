@@ -11,7 +11,6 @@ public class ProductAddDialoug extends CustomAddJDialog implements Filler {
     public ProductAddDialoug(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-
     }
 
     @Override
@@ -78,6 +77,13 @@ public class ProductAddDialoug extends CustomAddJDialog implements Filler {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -197,8 +203,13 @@ public class ProductAddDialoug extends CustomAddJDialog implements Filler {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
-        productDepartmentComboBox.setModel(new DefaultComboBoxModel(DepartmentModel.getInstance().getItems()));
+     
     }//GEN-LAST:event_formWindowActivated
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        // TODO add your handling code here:
+           productDepartmentComboBox.setModel(new DefaultComboBoxModel(DepartmentModel.getInstance().getItems()));
+    }//GEN-LAST:event_formWindowGainedFocus
 
     /**
      * @param args the command line arguments

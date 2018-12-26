@@ -19,11 +19,16 @@ public class Cart {
         this.items.clear();
     }
 
-    public void addItem(int quantity, Product p) {
+    public void addItem(int quantity, Product p) throws tooMuchQuantityException {
         CartItem tmp = new CartItem(quantity, p);
         if (items.contains(tmp)) {
             CartItem og = items.get(items.indexOf(tmp));
-            og.setQuantity(og.getQuantity() + tmp.getQuantity());
+            if (og.getQuantity() + tmp.getQuantity() <= p.getQuantity()) {
+                og.setQuantity(og.getQuantity() + tmp.getQuantity());
+            } else {
+             og.setQuantity(p.getQuantity());
+             throw new tooMuchQuantityException();
+            }
         } else {
             items.add(tmp);
         }

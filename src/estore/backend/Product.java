@@ -5,8 +5,7 @@ import estore.frontend.managerSide.Filler;
 public class Product extends Entity {
 
     private String description;
-    private int quantity;
-    private double price;
+    private int quantity, price;
     private Department department;
 
     @Override
@@ -28,7 +27,7 @@ public class Product extends Entity {
         this.name = get[0];
         this.description = get[1];
         this.quantity = Integer.parseInt(get[2]);
-        this.price = Double.parseDouble(get[3]);
+        this.price = Integer.parseInt(get[3]);
         System.out.println(get[4]);
         dp = (Department) DepartmentModel.getInstance().getById(Integer.parseInt(get[4]));
         this.setDepartment(dp);
@@ -44,7 +43,7 @@ public class Product extends Entity {
         return quantity;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 

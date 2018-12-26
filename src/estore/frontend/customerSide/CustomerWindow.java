@@ -1,5 +1,6 @@
 package estore.frontend.customerSide;
 
+import estore.backend.Cart;
 import estore.backend.Customer;
 import estore.backend.CustomerModel;
 import estore.backend.DepartmentModel;
@@ -43,6 +44,9 @@ public class CustomerWindow extends javax.swing.JFrame {
             if (loggedCustomer != null) {
                 welcomeMsgLabel.setText("Welcome, " + loggedCustomer.getName() + ".");
                 LogInOutBtn.setText("Logout");
+            } else {
+                JOptionPane.showMessageDialog(this, "username/password arent correct try again");
+                login();
             }
         }
         isLogged = loggedCustomer != null;
@@ -66,10 +70,42 @@ public class CustomerWindow extends javax.swing.JFrame {
         productPrice.setText(entity.getPrice() + "");
         productDepartment.setText(entity.getDepartment().toString());
         productDescription.setText(entity.getDescription());
+        cartQuantity.setText(getCartQuantity(entity) + "");
+    }
+
+    private void clearProductInfoPanel() {
+        productName.setText("");
+        productQuantity.setText("");
+        productPrice.setText("");
+        productDepartment.setText("");
+        productDescription.setText("");
     }
 
     private void updateTreeList() {
         productTree.setModel(DepartmentModel.getInstance().getItemsAsTreeModel());
+    }
+
+    int getCartQuantity(Product p) {
+        for (Object item : loggedCustomer.getCart().getItems()) {
+            if (((Cart.CartItem) item).getProduct().equals(p)) {
+                return ((Cart.CartItem) item).getQuantity();
+            }
+        }
+        return 0;
+    }
+
+    private void additemToCart() {
+        try {
+            DefaultMutableTreeNode tn = (DefaultMutableTreeNode) productTree.getSelectionModel().getSelectionPath().getLastPathComponent();
+            Product pr = (Product) pm.getByName(tn.getUserObject().toString());
+            int orderQuantity = (int) quantitySpinner.getValue();
+
+            if (orderQuantity + getCartQuantity(pr) <= pr.getQuantity()) {
+                loggedCustomer.getCart().addItem(orderQuantity, pr);
+                loggedCustomer.getCart().print();
+            }
+        } catch (estore.backend.tooMuchQuantityException | NullPointerException | ArrayIndexOutOfBoundsException e) {
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
@@ -96,6 +132,8 @@ public class CustomerWindow extends javax.swing.JFrame {
         productPrice = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         productDepartment = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        cartQuantity = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         quantitySpinner = new javax.swing.JSpinner();
         jLabel3 = new javax.swing.JLabel();
@@ -219,6 +257,8 @@ public class CustomerWindow extends javax.swing.JFrame {
 
         productDepartment.setEditable(false);
 
+        jLabel5.setText("cart has:");
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
@@ -244,7 +284,12 @@ public class CustomerWindow extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(productDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(productQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(productQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cartQuantity)))
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
@@ -257,7 +302,9 @@ public class CustomerWindow extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(productQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(productQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(cartQuantity))
                 .addGap(11, 11, 11)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -371,22 +418,11 @@ public class CustomerWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowGainedFocus
 
     private void addItemToCartBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addItemToCartBtnActionPerformed
-        try {
-            DefaultMutableTreeNode tn = (DefaultMutableTreeNode) productTree.getSelectionModel().getSelectionPath().getLastPathComponent();
-            Product pr = (Product) pm.getByName(tn.getUserObject().toString());
-
-            int orderQuantity = (int) quantitySpinner.getValue();
-            if (orderQuantity <= pr.getQuantity()) {
-                loggedCustomer.getCart().addItem(orderQuantity, pr);
-                loggedCustomer.getCart().print();
-            } else {
-                System.out.println(JOptionPane.showConfirmDialog(this, "insufficient", "", JOptionPane.YES_NO_OPTION));
-            }
-        } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
-        }
+        additemToCart();
     }//GEN-LAST:event_addItemToCartBtnActionPerformed
 
     private void productTreeValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_productTreeValueChanged
+        clearProductInfoPanel();
         try {
             DefaultMutableTreeNode tn = (DefaultMutableTreeNode) productTree.getSelectionModel().getSelectionPath().getLastPathComponent();
             if (tn.isLeaf()) {
@@ -439,12 +475,14 @@ public class CustomerWindow extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton LogInOutBtn;
     private javax.swing.JButton addItemToCartBtn;
+    private javax.swing.JLabel cartQuantity;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
