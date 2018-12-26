@@ -6,6 +6,7 @@ import estore.backend.CustomerModel;
 import estore.backend.DepartmentModel;
 import estore.backend.Product;
 import estore.backend.ProductModel;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -99,12 +100,31 @@ public class CustomerWindow extends javax.swing.JFrame {
             DefaultMutableTreeNode tn = (DefaultMutableTreeNode) productTree.getSelectionModel().getSelectionPath().getLastPathComponent();
             Product pr = (Product) pm.getByName(tn.getUserObject().toString());
             int orderQuantity = (int) quantitySpinner.getValue();
-
+            if (notifiyCheckbox.isSelected()) {
+                loggedCustomer.subscribe(pr);
+            } else {
+                loggedCustomer.unsubscribe(pr);
+            }
             if (orderQuantity + getCartQuantity(pr) <= pr.getQuantity()) {
                 loggedCustomer.getCart().addItem(orderQuantity, pr);
                 loggedCustomer.getCart().print();
             }
+            cartQuantity.setText(getCartQuantity(pr) + "");
         } catch (estore.backend.tooMuchQuantityException | NullPointerException | ArrayIndexOutOfBoundsException e) {
+        }
+
+    }
+
+    private void checkForNotafications() {
+        ArrayList<Product> prs = new ArrayList<>();
+        for (Object ree : loggedCustomer.getWishlist()) {
+            prs.add((Product) ree);
+            loggedCustomer.unsubscribe((Product) ree);
+        }
+        String str = "";
+        if (!prs.isEmpty()) {
+            str = prs.stream().map((i) -> i.toString() + ", ").reduce(str, String::concat);
+            JOptionPane.showMessageDialog(this, "items has more quantity" + str);
         }
     }
 
@@ -415,6 +435,9 @@ public class CustomerWindow extends javax.swing.JFrame {
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
         updateTreeList();
+        if (loggedCustomer != null) {
+            checkForNotafications();
+        }
     }//GEN-LAST:event_formWindowGainedFocus
 
     private void addItemToCartBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addItemToCartBtnActionPerformed
@@ -500,5 +523,6 @@ public class CustomerWindow extends javax.swing.JFrame {
     private javax.swing.JButton viewCartBtn;
     private javax.swing.JLabel welcomeMsgLabel;
     // End of variables declaration//GEN-END:variables
-  //</editor-fold>
+
+    //</editor-fold>
 }

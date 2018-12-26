@@ -11,6 +11,12 @@ public class ProductModel extends Model {
         this.filler = new estore.frontend.managerSide.ProductAddDialoug(estore.frontend.managerSide.ManagerWindow.getInstance(), true);
     }
 
+    @Override
+    public void update(Entity entity) {
+        super.update(entity);
+        CustomerModel.getInstance().notifyCustomers((Product) entity);
+    }
+
     public static ProductModel getInstance() {
         if (instance == null) {
             instance = new ProductModel();

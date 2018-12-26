@@ -1,14 +1,37 @@
 package estore.backend;
 
 import estore.frontend.managerSide.Filler;
+import java.util.HashSet;
 
 public class Customer extends Entity {
 
     private String address, username, password;
     private Cart cart;
+    private HashSet<Product> wishlist, Notafications;
+    private boolean hasNota;
 
     public Customer() {
         this.cart = new Cart();
+        this.wishlist = new HashSet<>();
+        this.Notafications = new HashSet<>();
+    }
+
+    void notifyItemForUpdate(Product p) {
+        Notafications.add(p);
+        hasNota = true;
+    }
+
+    public HashSet<Product> getWishlist() {
+        return wishlist;
+    }
+
+    public void subscribe(Product product) {
+        wishlist.add((Product) product);
+
+    }
+
+    public void unsubscribe(Product product) {
+        wishlist.remove(product);
     }
 
     @Override
@@ -27,6 +50,10 @@ public class Customer extends Entity {
     }
 //<editor-fold defaultstate="collapsed" desc="Getters">
 
+    public boolean isHasNota() {
+        return hasNota;
+    }
+
     public String getAddress() {
         return address;
     }
@@ -41,6 +68,10 @@ public class Customer extends Entity {
 
     public Cart getCart() {
         return cart;
+    }
+
+    public HashSet<Product> getNotafications() {
+        return Notafications;
     }
 //</editor-fold>
 

@@ -48,4 +48,12 @@ public class CustomerModel extends Model {
         return null;
     }
 
+    void notifyCustomers(Product p) {
+        Entities.forEach(c -> {
+            Customer cs = ((Customer) c);
+            if (cs.getWishlist().contains(p)) {
+                cs.notifyItemForUpdate(p);
+            }
+        });
+    }
 }
