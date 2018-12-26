@@ -18,16 +18,23 @@ public abstract class Model {
     }
 
     public Entity create() {
-        Entity createdEntity = (Entity) this.getEntity().fill(this.getFiller());
-        ((estore.frontend.managerSide.CustomAddJDialog) this.getFiller()).clear();
-        return this.save(createdEntity);
+        try {
+            Entity createdEntity = (Entity) this.getEntity().fill(this.getFiller());
+            ((estore.frontend.managerSide.CustomAddJDialog) this.getFiller()).clear();
+            return this.save(createdEntity);
+        } catch (NullPointerException e) {
+            return null;
+        }
     }
 
     public void update(Entity entity) {
-        ((estore.frontend.managerSide.CustomAddJDialog) this.getFiller()).setTextFromEntity(entity);
-        entity.fill(this.getFiller());
-        System.out.println(entity.toString());
-        ((estore.frontend.managerSide.CustomAddJDialog) this.getFiller()).clear();
+        try {
+            ((estore.frontend.managerSide.CustomAddJDialog) this.getFiller()).setTextFromEntity(entity);
+            entity.fill(this.getFiller());
+            System.out.println(entity.toString());
+            ((estore.frontend.managerSide.CustomAddJDialog) this.getFiller()).clear();
+        } catch (NullPointerException e) {
+        }
     }
 
     public int nextId() {

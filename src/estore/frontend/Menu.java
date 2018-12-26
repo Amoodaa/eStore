@@ -73,13 +73,10 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ManagerWindowMenuBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ManagerWindowMenuBtnActionPerformed
-        // TODO add your handling code here:
         ManagerWindow.getInstance().setVisible(true);
-        tests();
     }//GEN-LAST:event_ManagerWindowMenuBtnActionPerformed
 
     private void CustomerWindowMenuBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CustomerWindowMenuBtnActionPerformed
-        // TODO add your handling code here:
         CustomerWindow.getInstance().setVisible(true);
     }//GEN-LAST:event_CustomerWindowMenuBtnActionPerformed
 

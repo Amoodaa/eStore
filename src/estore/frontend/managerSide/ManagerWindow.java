@@ -578,31 +578,33 @@ public class ManagerWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
-        pack();
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-        pack();
     }//GEN-LAST:event_formMouseClicked
 
     private void productAddBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productAddBtnActionPerformed
         if (pm.create() == null) {
             JOptionPane.showMessageDialog(null, "product not created");
         }
+        updateProductList();
     }//GEN-LAST:event_productAddBtnActionPerformed
 
     private void departmentAddBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_departmentAddBtnActionPerformed
         if (dm.create() == null) {
             JOptionPane.showMessageDialog(null, "department not created");
+        } else {
+            productAddBtn.setEnabled(true);
+            productUpdateBtn.setEnabled(true);
+            updateDepartmentList();
         }
-        productAddBtn.setEnabled(true);
-        productUpdateBtn.setEnabled(true);
     }//GEN-LAST:event_departmentAddBtnActionPerformed
 
     private void customerAddBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customerAddBtnActionPerformed
         if (cm.create() == null) {
             JOptionPane.showMessageDialog(null, "Customer not created try again,username may not be unique");
         }
+        updateCustomerList();
     }//GEN-LAST:event_customerAddBtnActionPerformed
 
     private void jTabbedPane1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseMoved
@@ -635,23 +637,25 @@ public class ManagerWindow extends javax.swing.JFrame {
     private void departmentUpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_departmentUpdateBtnActionPerformed
         Entity entity = dm.getByName(departmentList.getSelectedValue());
         dm.update(entity);
+        updateDepartmentList();
     }//GEN-LAST:event_departmentUpdateBtnActionPerformed
 
     private void productUpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productUpdateBtnActionPerformed
         Entity entity = pm.getByName(productList.getSelectedValue());
         pm.update(entity);
+        updateProductList();
     }//GEN-LAST:event_productUpdateBtnActionPerformed
 
     private void customerUpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customerUpdateBtnActionPerformed
         Entity entity = cm.getByName(departmentList.getSelectedValue());
         cm.update(entity);
+        updateCustomerList();
+
     }//GEN-LAST:event_customerUpdateBtnActionPerformed
 
     private void jTabbedPane1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTabbedPane1FocusGained
         // TODO add your handling code here:
-        updateCustomerList();
-        updateProductList();
-        updateDepartmentList();
+
     }//GEN-LAST:event_jTabbedPane1FocusGained
 
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
