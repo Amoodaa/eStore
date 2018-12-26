@@ -121,12 +121,13 @@ public class ManagerWindow extends javax.swing.JFrame {
         customerName = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         customerId = new javax.swing.JLabel();
-        customerAddress = new javax.swing.JTextField();
         jLabel28 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
         customerUsername = new javax.swing.JTextField();
         jLabel31 = new javax.swing.JLabel();
         customerPassword = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        customerAddress = new javax.swing.JTextArea();
         jToolBar3 = new javax.swing.JToolBar();
         customerAddBtn = new javax.swing.JButton();
         customerUpdateBtn = new javax.swing.JButton();
@@ -161,11 +162,6 @@ public class ManagerWindow extends javax.swing.JFrame {
         });
 
         departmentList.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        departmentList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "wawa", " " };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         departmentList.setSelectedIndex(0);
         departmentList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -241,7 +237,7 @@ public class ManagerWindow extends javax.swing.JFrame {
         departmentTab.setLayout(departmentTabLayout);
         departmentTabLayout.setHorizontalGroup(
             departmentTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE)
+            .addComponent(jToolBar2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 587, Short.MAX_VALUE)
             .addGroup(departmentTabLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(departmentTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -270,11 +266,6 @@ public class ManagerWindow extends javax.swing.JFrame {
         productTab.setFocusable(false);
 
         productList.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        productList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "wawa" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         productList.setSelectedIndex(0
         );
         productList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
@@ -287,7 +278,7 @@ public class ManagerWindow extends javax.swing.JFrame {
         jLabel22.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel22.setText("Product List");
 
-        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(productList.getSelectedValue() + ":"));
+        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder("Product"));
 
         jLabel23.setText("Name");
 
@@ -398,7 +389,7 @@ public class ManagerWindow extends javax.swing.JFrame {
         productTabLayout.setHorizontalGroup(
             productTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(productTabLayout.createSequentialGroup()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
+                .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(productTabLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
@@ -427,11 +418,6 @@ public class ManagerWindow extends javax.swing.JFrame {
         jTabbedPane1.addTab("Product", productTab);
 
         customerList.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        customerList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "wawa", " " };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         customerList.setSelectedIndex(0
         );
         customerList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
@@ -444,7 +430,7 @@ public class ManagerWindow extends javax.swing.JFrame {
         jLabel25.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel25.setText("Customers List");
 
-        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(customerList.getSelectedValue() + ":"));
+        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder("Customer"));
 
         jLabel26.setText("Name");
 
@@ -453,8 +439,6 @@ public class ManagerWindow extends javax.swing.JFrame {
         jLabel3.setText("ID");
 
         customerId.setText("0");
-
-        customerAddress.setEditable(false);
 
         jLabel28.setText("Address");
 
@@ -465,6 +449,11 @@ public class ManagerWindow extends javax.swing.JFrame {
         jLabel31.setText("Password");
 
         customerPassword.setEditable(false);
+
+        customerAddress.setEditable(false);
+        customerAddress.setColumns(18);
+        customerAddress.setRows(2);
+        jScrollPane1.setViewportView(customerAddress);
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -479,13 +468,13 @@ public class ManagerWindow extends javax.swing.JFrame {
                     .addComponent(jLabel30)
                     .addComponent(jLabel31))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(customerId)
-                    .addComponent(customerName, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(customerAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(customerName)
                     .addComponent(customerUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(customerPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(122, Short.MAX_VALUE))
+                    .addComponent(customerPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -499,10 +488,10 @@ public class ManagerWindow extends javax.swing.JFrame {
                     .addComponent(jLabel26)
                     .addComponent(customerName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(4, 4, 4)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel28)
-                    .addComponent(customerAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel30)
                     .addComponent(customerUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -510,7 +499,7 @@ public class ManagerWindow extends javax.swing.JFrame {
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel31)
                     .addComponent(customerPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jToolBar3.setRollover(true);
@@ -535,27 +524,29 @@ public class ManagerWindow extends javax.swing.JFrame {
         customerTab.setLayout(customerTabLayout);
         customerTabLayout.setHorizontalGroup(
             customerTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar3, javax.swing.GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE)
+            .addGroup(customerTabLayout.createSequentialGroup()
+                .addComponent(jToolBar3, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE)
+                .addGap(201, 201, 201))
             .addGroup(customerTabLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(customerTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel25)
                     .addComponent(jScrollPane17, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         customerTabLayout.setVerticalGroup(
             customerTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(customerTabLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(customerTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(customerTabLayout.createSequentialGroup()
                         .addComponent(jLabel25)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
+                        .addComponent(jScrollPane17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
                 .addComponent(jToolBar3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -700,7 +691,7 @@ public class ManagerWindow extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel DepartmentInfoPanel;
     private javax.swing.JButton customerAddBtn;
-    private javax.swing.JTextField customerAddress;
+    private javax.swing.JTextArea customerAddress;
     private javax.swing.JLabel customerId;
     private javax.swing.JList<String> customerList;
     private javax.swing.JTextField customerName;
@@ -731,6 +722,7 @@ public class ManagerWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane13;
     private javax.swing.JScrollPane jScrollPane14;
     private javax.swing.JScrollPane jScrollPane15;

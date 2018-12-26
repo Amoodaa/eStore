@@ -21,6 +21,10 @@ public class CustomerWindow extends javax.swing.JFrame {
         return new CustomerWindow();
     }
 
+    public Customer getLoggedCustomer() {
+        return loggedCustomer;
+    }
+
     private CustomerWindow() {
         initComponents();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -267,6 +271,8 @@ public class CustomerWindow extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        quantitySpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, 99, 1));
+
         jLabel3.setText("Quantity");
 
         addItemToCartBtn.setText("Add to Cart");
@@ -391,7 +397,7 @@ public class CustomerWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_productTreeValueChanged
 
     private void viewCartBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewCartBtnActionPerformed
-        new CartWindow(loggedCustomer.getCart()).setVisible(true);
+        new CartDialog(this, true, loggedCustomer.getCart()).setVisible(true);
     }//GEN-LAST:event_viewCartBtnActionPerformed
 
     /**

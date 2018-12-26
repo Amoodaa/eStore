@@ -1,5 +1,7 @@
 package estore.backend;
 
+import estore.backend.Cart.CartItem;
+
 public class ProductModel extends Model {
 
     private static ProductModel instance;
@@ -21,4 +23,15 @@ public class ProductModel extends Model {
         return new Product();
     }
 
+    private void checkoutProduct(int quantity, Product product) {
+        Product p = (Product) this.Entities.get(this.Entities.indexOf(product));
+        p.setQuantity(p.getQuantity() - quantity);
+    }
+
+    public void checkoutCart(Cart cart) {
+        for (Object i : cart.getItems()) {
+            CartItem ci = (CartItem) i;
+            checkoutProduct(ci.getQuantity(), ci.getProduct());
+        }
+    }
 }
