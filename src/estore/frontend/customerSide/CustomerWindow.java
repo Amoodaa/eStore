@@ -117,9 +117,13 @@ public class CustomerWindow extends javax.swing.JFrame {
 
     private void checkForNotafications() {
         ArrayList<Product> prs = new ArrayList<>();
-        for (Object ree : loggedCustomer.getWishlist()) {
-            prs.add((Product) ree);
-            loggedCustomer.unsubscribe((Product) ree);
+
+        if (loggedCustomer.isHasNota()) {
+            loggedCustomer.getNotafications().forEach(c -> {
+                prs.add(c);
+                loggedCustomer.unsubscribe(c);
+            });
+            loggedCustomer.setHasNota(false);
         }
         String str = "";
         if (!prs.isEmpty()) {

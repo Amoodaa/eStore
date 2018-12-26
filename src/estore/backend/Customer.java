@@ -50,6 +50,10 @@ public class Customer extends Entity {
     }
 //<editor-fold defaultstate="collapsed" desc="Getters">
 
+    public void setHasNota(boolean hasNota) {
+        this.hasNota = hasNota;
+    }
+
     public boolean isHasNota() {
         return hasNota;
     }
