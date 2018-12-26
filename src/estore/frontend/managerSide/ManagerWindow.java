@@ -133,6 +133,11 @@ public class ManagerWindow extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                formFocusGained(evt);
+            }
+        });
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 formMouseClicked(evt);
@@ -147,6 +152,11 @@ public class ManagerWindow extends javax.swing.JFrame {
         jTabbedPane1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 jTabbedPane1MouseMoved(evt);
+            }
+        });
+        jTabbedPane1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTabbedPane1FocusGained(evt);
             }
         });
 
@@ -220,6 +230,11 @@ public class ManagerWindow extends javax.swing.JFrame {
         jToolBar2.add(departmentAddBtn);
 
         departmentUpdateBtn.setText("Update Department");
+        departmentUpdateBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                departmentUpdateBtnActionPerformed(evt);
+            }
+        });
         jToolBar2.add(departmentUpdateBtn);
 
         javax.swing.GroupLayout departmentTabLayout = new javax.swing.GroupLayout(departmentTab);
@@ -371,6 +386,11 @@ public class ManagerWindow extends javax.swing.JFrame {
 
         productUpdateBtn.setText("Update product");
         productUpdateBtn.setEnabled(false);
+        productUpdateBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                productUpdateBtnActionPerformed(evt);
+            }
+        });
         jToolBar1.add(productUpdateBtn);
 
         javax.swing.GroupLayout productTabLayout = new javax.swing.GroupLayout(productTab);
@@ -504,6 +524,11 @@ public class ManagerWindow extends javax.swing.JFrame {
         jToolBar3.add(customerAddBtn);
 
         customerUpdateBtn.setText("Update customer");
+        customerUpdateBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                customerUpdateBtnActionPerformed(evt);
+            }
+        });
         jToolBar3.add(customerUpdateBtn);
 
         javax.swing.GroupLayout customerTabLayout = new javax.swing.GroupLayout(customerTab);
@@ -553,47 +578,37 @@ public class ManagerWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
-        pack();        // TODO add your handling code here:
+        pack();
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-        pack();        // TODO add your handling code here:
+        pack();
     }//GEN-LAST:event_formMouseClicked
 
     private void productAddBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productAddBtnActionPerformed
         if (pm.create() == null) {
             JOptionPane.showMessageDialog(null, "product not created");
         }
-        updateProductList();
     }//GEN-LAST:event_productAddBtnActionPerformed
 
     private void departmentAddBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_departmentAddBtnActionPerformed
         if (dm.create() == null) {
             JOptionPane.showMessageDialog(null, "department not created");
-
         }
         productAddBtn.setEnabled(true);
-//        productUpdateBtn.setEnabled(true);
-        updateDepartmentList();
+        productUpdateBtn.setEnabled(true);
     }//GEN-LAST:event_departmentAddBtnActionPerformed
 
     private void customerAddBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customerAddBtnActionPerformed
         if (cm.create() == null) {
             JOptionPane.showMessageDialog(null, "Customer not created try again,username may not be unique");
         }
-        updateCustomerList();
     }//GEN-LAST:event_customerAddBtnActionPerformed
 
     private void jTabbedPane1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseMoved
-        // TODO add your handling code here:     
-
-
     }//GEN-LAST:event_jTabbedPane1MouseMoved
 
     private void departmentListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_departmentListValueChanged
-        // TODO add your handling code here:     
-        tests();
-
         try {
             Entity entity = dm.getByName(departmentList.getSelectedValue());
             updateDepartmentInfoPanel((Department) entity);
@@ -602,7 +617,6 @@ public class ManagerWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_departmentListValueChanged
 
     private void productListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_productListValueChanged
-        // TODO add your handling code here:
         try {
             Entity entity = pm.getByName(productList.getSelectedValue());
             updateProductInfoPanel((Product) entity);
@@ -611,13 +625,38 @@ public class ManagerWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_productListValueChanged
 
     private void customerListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_customerListValueChanged
-        // TODO add your handling code here:
         try {
             Entity entity = cm.getByName(customerList.getSelectedValue());
             updateCustomerInfoPanel((Customer) entity);
         } catch (ArrayIndexOutOfBoundsException e) {
         }
     }//GEN-LAST:event_customerListValueChanged
+
+    private void departmentUpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_departmentUpdateBtnActionPerformed
+        Entity entity = dm.getByName(departmentList.getSelectedValue());
+        dm.update(entity);
+    }//GEN-LAST:event_departmentUpdateBtnActionPerformed
+
+    private void productUpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productUpdateBtnActionPerformed
+        Entity entity = pm.getByName(productList.getSelectedValue());
+        pm.update(entity);
+    }//GEN-LAST:event_productUpdateBtnActionPerformed
+
+    private void customerUpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customerUpdateBtnActionPerformed
+        Entity entity = cm.getByName(departmentList.getSelectedValue());
+        cm.update(entity);
+    }//GEN-LAST:event_customerUpdateBtnActionPerformed
+
+    private void jTabbedPane1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTabbedPane1FocusGained
+        // TODO add your handling code here:
+        updateCustomerList();
+        updateProductList();
+        updateDepartmentList();
+    }//GEN-LAST:event_jTabbedPane1FocusGained
+
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formFocusGained
 
     /**
      * @param args the command line arguments
@@ -707,11 +746,5 @@ public class ManagerWindow extends javax.swing.JFrame {
     private javax.swing.JPanel productTab;
     private javax.swing.JButton productUpdateBtn;
     // End of variables declaration//GEN-END:variables
-
-    private void tests() {
-        departmentAddBtn.doClick();
-        productAddBtn.doClick();
-        customerAddBtn.doClick();
-    }
 
 }

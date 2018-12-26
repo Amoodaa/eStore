@@ -30,7 +30,7 @@ public abstract class CustomAddJDialog extends javax.swing.JDialog implements Fi
 
     protected abstract String[] getValidatedData() throws invalidInputsException;
 
-    protected abstract void setTextFromEntity(Entity entity);
+    public abstract void setTextFromEntity(Entity entity);
 
     public abstract void clear();
 

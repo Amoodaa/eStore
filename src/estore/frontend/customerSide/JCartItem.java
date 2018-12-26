@@ -17,6 +17,7 @@ public class JCartItem extends javax.swing.JPanel {
         productTotalPrice.setText(item.getProduct().getPrice() + "");
         productTotalPrice.setText(item.getTotal() + "");
     }
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">            
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -170,5 +171,5 @@ public class JCartItem extends javax.swing.JPanel {
     private javax.swing.JTextField productQuantity;
     private javax.swing.JTextField productTotalPrice;
     // End of variables declaration//GEN-END:variables
-
+ // </editor-fold>
 }

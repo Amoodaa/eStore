@@ -31,7 +31,7 @@ public class ProductAddDialoug extends CustomAddJDialog implements Filler {
     }
 
     @Override
-    protected void setTextFromEntity(Entity entity) {
+    public void setTextFromEntity(Entity entity) {
         Product pr = (Product) entity;
         this.productName.setText(pr.getName());
         this.productDescription.setText(pr.getDescription());

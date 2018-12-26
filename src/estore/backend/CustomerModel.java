@@ -30,11 +30,6 @@ public class CustomerModel extends Model {
         return new Customer();
     }
 
-    @Override
-    public void update(Entity entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     private boolean isUnique(Customer cus) {
         for (Object en : this.getItems()) {
             if (cus.getUsername().equalsIgnoreCase(((Customer) en).getUsername())) {

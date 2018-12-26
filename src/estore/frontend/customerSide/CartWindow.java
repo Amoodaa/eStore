@@ -7,15 +7,16 @@ public class CartWindow extends javax.swing.JFrame {
     public CartWindow(Cart cart) {
         initComponents();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        if (cart != null) {
             addCartItems(cart);
             this.totalPrice.setText(cart.getTotal() + "");
-        }
     }
 
     private void addCartItems(Cart cart) {
         for (Object p : cart.getItems()) {
-            CartItemsPanel.add(new JCartItem((Cart.CartItem) p));
+            JCartItem item = new JCartItem((Cart.CartItem) p);
+            item.setVisible(true);
+            System.out.println(p);
+            CartItemsPanel.add(item);
         }
     }
 
@@ -69,6 +70,8 @@ public class CartWindow extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        CartItemsPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
         javax.swing.GroupLayout CartItemsPanelLayout = new javax.swing.GroupLayout(CartItemsPanel);
         CartItemsPanel.setLayout(CartItemsPanelLayout);
         CartItemsPanelLayout.setHorizontalGroup(
@@ -90,7 +93,7 @@ public class CartWindow extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 471, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1))
                 .addContainerGap())
@@ -99,7 +102,7 @@ public class CartWindow extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())

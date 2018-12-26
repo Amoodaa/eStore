@@ -12,7 +12,7 @@ public class DepartmentAddDialoug extends CustomAddJDialog {
     }
 
     @Override
-    protected void setTextFromEntity(Entity entity) {
+    public void setTextFromEntity(Entity entity) {
         Department dp = (Department) entity;
         this.departmentName.setText(dp.getName());
         this.departmentDescription.setText(dp.getDescription());

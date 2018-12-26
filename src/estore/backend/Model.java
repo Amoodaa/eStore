@@ -11,8 +11,6 @@ public abstract class Model {
 
     public abstract Entity getEntity();
 
-    public abstract void update(Entity entity);
-
     public Model(int ids) {
         this.ids = ids;
         this.Entities = new java.util.ArrayList<>();
@@ -23,6 +21,13 @@ public abstract class Model {
         Entity createdEntity = (Entity) this.getEntity().fill(this.getFiller());
         ((estore.frontend.managerSide.CustomAddJDialog) this.getFiller()).clear();
         return this.save(createdEntity);
+    }
+
+    public void update(Entity entity) {
+        ((estore.frontend.managerSide.CustomAddJDialog) this.getFiller()).setTextFromEntity(entity);
+        entity.fill(this.getFiller());
+        System.out.println(entity.toString());
+        ((estore.frontend.managerSide.CustomAddJDialog) this.getFiller()).clear();
     }
 
     public int nextId() {

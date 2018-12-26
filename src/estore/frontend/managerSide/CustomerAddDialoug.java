@@ -31,7 +31,7 @@ public class CustomerAddDialoug extends CustomAddJDialog implements Filler {
     }
 
     @Override
-    protected void setTextFromEntity(Entity entity) {
+    public void setTextFromEntity(Entity entity) {
         Customer cus = (Customer) entity;
         this.customerId.setText(String.valueOf(((Entity) entity).getId()));
         this.customerName.setText(cus.getName());

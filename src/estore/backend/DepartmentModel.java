@@ -24,11 +24,6 @@ public class DepartmentModel extends Model {
         return new Department();
     }
 
-    @Override
-    public void update(Entity entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     public DefaultTreeModel getItemsAsTreeModel() {
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("eStore");
         DefaultTreeModel tree = new DefaultTreeModel(root);

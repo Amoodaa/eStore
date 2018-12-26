@@ -21,9 +21,4 @@ public class ProductModel extends Model {
         return new Product();
     }
 
-    @Override
-    public void update(Entity entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
 }
