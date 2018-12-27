@@ -26,12 +26,16 @@ public class Cart {
             if (og.getQuantity() + tmp.getQuantity() <= p.getQuantity()) {
                 og.setQuantity(og.getQuantity() + tmp.getQuantity());
             } else {
-             og.setQuantity(p.getQuantity());
-             throw new tooMuchQuantityException();
+                og.setQuantity(p.getQuantity());
+                throw new tooMuchQuantityException();
             }
         } else {
             items.add(tmp);
         }
+    }
+
+    public void removeItem(CartItem ci) {
+        this.items.remove(ci);
     }
 
     public Object[] getItems() {

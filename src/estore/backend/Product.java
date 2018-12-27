@@ -17,13 +17,6 @@ public class Product extends Entity {
     public Fillable fill(Filler filler) {
         String[] get = filler.get();
         Department dp;
-        /*
-        arr[0] = this.productName.getText();
-        arr[1] = this.productDescription.getText();
-        arr[2] = (int) this.productQuantitySpinner.getValue() + "";
-        arr[3] = (double) this.productPriceSpinner.getValue() + "";
-        arr[4] = ((Department) this.productDepartmentComboBox.getSelectedItem()).toString();
-         */
         this.name = get[0];
         this.description = get[1];
         this.quantity = Integer.parseInt(get[2]);

@@ -1,7 +1,9 @@
 package estore.frontend.customerSide;
 
 import estore.backend.Cart;
+import estore.backend.Cart.CartItem;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
 public class CartDialog extends javax.swing.JDialog {
@@ -21,12 +23,16 @@ public class CartDialog extends javax.swing.JDialog {
 
     private void addCartItems(Cart cart) {
         for (Object p : cart.getItems()) {
-            JCartItem item = new JCartItem((Cart.CartItem) p);
+            JCartItem item = new JCartItem((Cart.CartItem) p, ((CustomerWindow) parent).getLoggedCustomer());
             item.setVisible(true);
             System.out.println(p);
             CartItemsPanel.add(item);
         }
         pack();
+    }
+
+    void removeItemfromCart(CartItem ci) {
+        ((CustomerWindow) this.parent).getLoggedCustomer().getCart().removeItem(ci);
     }
 
     @SuppressWarnings("unchecked")
@@ -108,14 +114,14 @@ public class CartDialog extends javax.swing.JDialog {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 658, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())

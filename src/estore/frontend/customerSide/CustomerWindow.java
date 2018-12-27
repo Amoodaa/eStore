@@ -128,7 +128,7 @@ public class CustomerWindow extends javax.swing.JFrame {
         String str = "";
         if (!prs.isEmpty()) {
             str = prs.stream().map((i) -> i.toString() + ", ").reduce(str, String::concat);
-            JOptionPane.showMessageDialog(this, "items has more quantity" + str);
+            JOptionPane.showMessageDialog(this, "items has more quantity:\n" + str);
         }
     }
 

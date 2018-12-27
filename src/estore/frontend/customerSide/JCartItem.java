@@ -1,12 +1,18 @@
 package estore.frontend.customerSide;
 
 import estore.backend.Cart.CartItem;
+import estore.backend.Customer;
 
 public class JCartItem extends javax.swing.JPanel {
 
-    public JCartItem(CartItem item) {
+    private CartItem item;
+    private Customer loggedCustomer;
+
+    public JCartItem(CartItem item, Customer loggedCustomer) {
         initComponents();
+        this.item = item;
         setCartItem(item);
+        this.loggedCustomer = loggedCustomer;
         this.setVisible(true);
     }
 
@@ -14,7 +20,7 @@ public class JCartItem extends javax.swing.JPanel {
         productName.setText(item.getProduct().getName());
         productDescription.setText(item.getProduct().getDescription());
         productQuantity.setText(item.getQuantity() + "");
-        productTotalPrice.setText(item.getProduct().getPrice() + "");
+        productPrice.setText(item.getProduct().getPrice() + "");
         productTotalPrice.setText(item.getTotal() + "");
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">            
@@ -133,6 +139,11 @@ public class JCartItem extends javax.swing.JPanel {
         );
 
         RemoveItemBtn.setText("Remove");
+        RemoveItemBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RemoveItemBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -146,16 +157,20 @@ public class JCartItem extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(59, 59, 59)
                 .addComponent(RemoveItemBtn)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void RemoveItemBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveItemBtnActionPerformed
+        // TODO add your handling code here:
+        loggedCustomer.getCart().removeItem(item);
+        System.out.println("removed");
+    }//GEN-LAST:event_RemoveItemBtnActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton RemoveItemBtn;
     private javax.swing.JLabel jLabel1;
