@@ -100,11 +100,7 @@ public class CustomerWindow extends javax.swing.JFrame {
             DefaultMutableTreeNode tn = (DefaultMutableTreeNode) productTree.getSelectionModel().getSelectionPath().getLastPathComponent();
             Product pr = (Product) pm.getByName(tn.getUserObject().toString());
             int orderQuantity = (int) quantitySpinner.getValue();
-            if (notifiyCheckbox.isSelected()) {
-                loggedCustomer.subscribe(pr);
-            } else {
-                loggedCustomer.unsubscribe(pr);
-            }
+
             if (orderQuantity + getCartQuantity(pr) <= pr.getQuantity()) {
                 loggedCustomer.getCart().addItem(orderQuantity, pr);
                 loggedCustomer.getCart().print();
@@ -298,7 +294,7 @@ public class CustomerWindow extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel24)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(productName, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane16, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -355,19 +351,24 @@ public class CustomerWindow extends javax.swing.JFrame {
         });
 
         notifiyCheckbox.setText("notify when more is avaliable");
+        notifiyCheckbox.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                notifiyCheckboxMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(notifiyCheckbox)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(quantitySpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(notifiyCheckbox)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(addItemToCartBtn)
                 .addContainerGap())
         );
@@ -462,6 +463,19 @@ public class CustomerWindow extends javax.swing.JFrame {
     private void viewCartBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewCartBtnActionPerformed
         new CartDialog(this, true, loggedCustomer.getCart()).setVisible(true);
     }//GEN-LAST:event_viewCartBtnActionPerformed
+
+    private void notifiyCheckboxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_notifiyCheckboxMouseClicked
+        try {
+            DefaultMutableTreeNode tn = (DefaultMutableTreeNode) productTree.getSelectionModel().getSelectionPath().getLastPathComponent();
+            Product pr = (Product) pm.getByName(tn.getUserObject().toString());
+            if (notifiyCheckbox.isSelected()) {
+                loggedCustomer.subscribe(pr);
+            } else {
+                loggedCustomer.unsubscribe(pr);
+            }
+        } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
+        }   // TODO add your handling code here:
+    }//GEN-LAST:event_notifiyCheckboxMouseClicked
 
     /**
      * @param args the command line arguments
