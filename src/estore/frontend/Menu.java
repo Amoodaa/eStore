@@ -6,7 +6,6 @@ import estore.frontend.managerSide.ManagerWindow;
 public class Menu extends javax.swing.JFrame {
 
     private ManagerWindow mw = ManagerWindow.getInstance();
-    private CustomerWindow cw = CustomerWindow.getInstance();
 
     public Menu() {
         initComponents();
@@ -80,7 +79,7 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_ManagerWindowMenuBtnActionPerformed
 
     private void CustomerWindowMenuBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CustomerWindowMenuBtnActionPerformed
-        cw.setVisible(true);
+        CustomerWindow.getInstance().setVisible(true);
     }//GEN-LAST:event_CustomerWindowMenuBtnActionPerformed
 
     /**

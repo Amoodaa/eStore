@@ -27,7 +27,6 @@ public class Customer extends Entity {
 
     public void subscribe(Product product) {
         wishlist.add((Product) product);
-
     }
 
     public void unsubscribe(Product product) {

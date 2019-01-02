@@ -17,6 +17,7 @@ public abstract class CustomAddJDialog extends javax.swing.JDialog implements Fi
     public String[] get() {
 
         this.setVisible(true);
+        
         String[] valid;
         try {
             valid = getValidatedData();
@@ -89,20 +90,6 @@ public abstract class CustomAddJDialog extends javax.swing.JDialog implements Fi
         }
         //</editor-fold>
         //</editor-fold>
-        /*Create and display the dialog 
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                CustomAddJDialog dialog = new CustomAddJDialog(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-         */
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

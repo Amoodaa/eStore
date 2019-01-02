@@ -21,7 +21,6 @@ public class Product extends Entity {
         this.description = get[1];
         this.quantity = Integer.parseInt(get[2]);
         this.price = Integer.parseInt(get[3]);
-        System.out.println(get[4]);
         dp = (Department) DepartmentModel.getInstance().getById(Integer.parseInt(get[4]));
         this.setDepartment(dp);
         return this;

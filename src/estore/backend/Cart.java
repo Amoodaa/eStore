@@ -20,17 +20,17 @@ public class Cart {
     }
 
     public void addItem(int quantity, Product p) throws tooMuchQuantityException {
-        CartItem tmp = new CartItem(quantity, p);
-        if (items.contains(tmp)) {
-            CartItem og = items.get(items.indexOf(tmp));
-            if (og.getQuantity() + tmp.getQuantity() <= p.getQuantity()) {
-                og.setQuantity(og.getQuantity() + tmp.getQuantity());
+        CartItem newItem = new CartItem(quantity, p);
+        if (items.contains(newItem)) {
+            CartItem og = items.get(items.indexOf(newItem));
+            if (og.getQuantity() + newItem.getQuantity() <= p.getQuantity()) {
+                og.setQuantity(og.getQuantity() + newItem.getQuantity());
             } else {
                 og.setQuantity(p.getQuantity());
                 throw new tooMuchQuantityException();
             }
         } else {
-            items.add(tmp);
+            items.add(newItem);
         }
     }
 
@@ -56,6 +56,7 @@ public class Cart {
 
         private int quantity;
         private Product product;
+        double total;
 
         public int getQuantity() {
             return quantity;
@@ -68,7 +69,6 @@ public class Cart {
         public double getTotal() {
             return total;
         }
-        double total;
 
         public CartItem(int quantity, Product product) {
             this.quantity = quantity;
